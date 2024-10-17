@@ -30,7 +30,7 @@ void ULaserComponent::UseLaser() const {
 		EndLocation = UKismetMathLibrary::MirrorVectorByNormal(EndLocation, Hit.Normal) + (GetForwardVector() * 100000);
 
 		//Break out of loop of hit component is not mirror
-		if (!Hit.Component->ComponentHasTag("Mirror")) break;
+		if (!Hit.Component->ComponentHasTag("Mirror")) { break; }
 	}
 }
 
