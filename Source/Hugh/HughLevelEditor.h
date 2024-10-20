@@ -1,0 +1,92 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "EnhancedInputComponent.h"
+#include "InputActionValue.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "HughLevelEditor.generated.h"
+
+
+UENUM(BlueprintType)
+enum class Modes : uint8  {Building, Removing, Editing };
+
+UCLASS()
+class HUGH_API AHughLevelEditor : public APawn
+{
+	GENERATED_BODY()
+	
+public:	
+	// Sets default values for this actor's properties
+	AHughLevelEditor();
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) UStaticMeshComponent* DisplayMesh;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) UCameraComponent* EditorCamera;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) float GridSize = 100;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) TSubclassOf<AActor> CurrentObject;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	//UEnhancedInputComponent* Input;
+	FVector2D SavedMouseLoc;
+	FVector2D NewMouseLoc;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	class UInputMappingContext* DefaultMappingContext;
+	bool b_CanLook;
+	TArray<AActor*> GhostObjects;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input) class UInputAction* IA_Place;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input) class UInputAction* IA_Look;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input) class UInputAction* IA_Zoom;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input) class UInputAction* IA_LookButton;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input) class UInputAction* IA_RotateObject;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input) class UInputAction* IA_PanButton;
+
+
+	FVector StartPoint;
+	FVector EndPoint;
+
+	AActor* HoveredObject;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
+	FVector Snap(FVector InVector);
+	void RotateObject();
+	void Trace();
+	void CanLook(const FInputActionValue& Value);
+	void Pan(const FInputActionValue& Value);
+	void RotateCamera(const FInputActionValue& Value);
+	void Zoom(const FInputActionValue& Value);
+	void StartPlacing(const FInputActionValue& Value);
+	void PlaceObject(const FInputActionValue& Value);
+	UFUNCTION(BlueprintCallable) void SetObject(int Index);
+	UFUNCTION(BlueprintCallable)void SetMode(Modes NewMode);
+	void GetActorsFromFolder(const FString& InFolderPath);
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* GhostMaterial;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* RemovingMaterial;
+
+	float LookSensitiviy = 3;
+	float ZoomSensitivity = 75;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) USpringArmComponent* CameraArm;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<TSubclassOf<AActor>> AllObjects;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) int ObjectIndex;
+	bool Placing;
+
+	bool PanButtonPressed;
+
+	float PanStrenght = 40;
+	float PanDir = -1;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) Modes EditorMode;
+
+	
+};
