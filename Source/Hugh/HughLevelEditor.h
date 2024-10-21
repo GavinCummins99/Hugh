@@ -27,6 +27,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TSubclassOf<AActor> CurrentObject;
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,6 +38,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	class UInputMappingContext* DefaultMappingContext;
+
 	bool b_CanLook;
 	TArray<AActor*> GhostObjects;
 
