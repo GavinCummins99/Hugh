@@ -22,15 +22,19 @@ void ULaserComponent::UseLaser() const {
 	//Bounce laser a max of 'i' times
 	for (int i = 0; i < MaxBounces; i++) {
 		//Shoot laser
-		GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Camera);
-		DrawDebugLine(GetWorld(), StartLocation, Hit.Location, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
+		if (GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Camera)) {
+			DrawDebugLine(GetWorld(), StartLocation, Hit.Location, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
 
-		//Bounce laser
-		StartLocation = Hit.Location;
-		EndLocation = UKismetMathLibrary::MirrorVectorByNormal(EndLocation, Hit.Normal) + (GetForwardVector() * 100000);
+			//Bounce laser
+			StartLocation = Hit.Location;
+			EndLocation = UKismetMathLibrary::MirrorVectorByNormal(EndLocation, Hit.Normal) + (GetForwardVector() * 100000);
 
-		//Break out of loop of hit component is not mirror
-		if (!Hit.Component->ComponentHasTag("Mirror")) { break; }
+			//Break out of loop of hit component is not mirror
+			if (!Hit.Component->ComponentHasTag("Mirror")) break;
+		}
+		else {
+			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
+		}
 	}
 }
 
