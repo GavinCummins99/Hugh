@@ -13,7 +13,8 @@ void ULaserComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 }
 
 //Code for shooting the laser from component origin
-void ULaserComponent::UseLaser() const {
+void ULaserComponent::UseLaser()
+{
 	//Variables for laser
 	FHitResult Hit;
 	FVector StartLocation = GetComponentLocation();
@@ -35,6 +36,8 @@ void ULaserComponent::UseLaser() const {
 		else {
 			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
 		}
+
+		LaserHitResult = Hit;
 	}
 }
 

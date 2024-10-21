@@ -15,9 +15,11 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	//Global properties
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) FColor LaserColor = FColor::Red;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) int MaxBounces = 8;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Laser") FColor LaserColor = FColor::Red;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Laser") int MaxBounces = 8;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Laser") FHitResult LaserHitResult;
 
 protected:
-	void UseLaser() const;
+	void UseLaser();
 };
