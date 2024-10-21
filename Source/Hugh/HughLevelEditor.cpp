@@ -17,6 +17,7 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Materials/Material.h"
 #include "Runtime/Media/Public/IMediaControls.h"
 
 // Sets default values
