@@ -54,6 +54,7 @@ protected:
 	FVector EndPoint;
 
 	AActor* HoveredObject;
+	bool EditingSelection;
 
 public:	
 	// Called every frame
@@ -71,15 +72,19 @@ public:
 	UFUNCTION(BlueprintCallable) void SetObject(int Index);
 	UFUNCTION(BlueprintCallable)void SetMode(Modes NewMode);
 	void GetActorsFromFolder(const FString& InFolderPath);
+	UFUNCTION(BlueprintCallable) void RemoveSelectedObjects();
+	UFUNCTION(BlueprintCallable) void ClearSelectedObjects();
+	UFUNCTION(BlueprintCallable) void ReplaceSelectedObjects(AActor* NewObject);
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* GhostMaterial;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* RemovingMaterial;
-
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* EditingMaterial;
+	
 	float LookSensitiviy = 3;
 	float ZoomSensitivity = 75;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) USpringArmComponent* CameraArm;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<TSubclassOf<AActor>> AllObjects;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<AActor*> AllObjects;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) int ObjectIndex;
 	bool Placing;
 
@@ -89,6 +94,8 @@ public:
 	float PanDir = -1;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) Modes EditorMode;
+	UPROPERTY(BlueprintReadOnly) TArray<AActor*> TaggedObjects;
+	UPROPERTY(BlueprintReadOnly) TArray<AActor*> SelectedObjects;
 
 	
 };

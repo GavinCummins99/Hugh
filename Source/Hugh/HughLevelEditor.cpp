@@ -171,15 +171,16 @@ void AHughLevelEditor::Trace() {
 	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, QueryParams)) {
 		DisplayMesh->SetWorldLocation(Snap(Hit.ImpactPoint + (Hit.ImpactNormal * 25)));
 
-		if(EditorMode == Modes::Removing) {
-			if(HoveredObject) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+		if(EditorMode != Modes::Building) {
+			//if(HoveredObject && !TaggedObjects.Contains(HoveredObject) && !SelectedObjects.Contains(HoveredObject)) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);////////////////////////////////
 			HoveredObject = Hit.GetActor();
-			Hit.GetActor()->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(RemovingMaterial);
-		} 
+			//Hit.GetActor()->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditorMode == Modes::Removing? RemovingMaterial : EditingMaterial);//////////////////
+		}
 	}
 	//If no immediate hit check for point along plane 
 	else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
 		DisplayMesh->SetWorldLocation(Snap(IntersectionPoint + (Hit.ImpactNormal * 25)));
+		if(HoveredObject && !SelectedObjects.Contains(HoveredObject)) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
 	}
 }
 
@@ -242,12 +243,65 @@ void AHughLevelEditor::StartPlacing(const FInputActionValue& Value) {
 	else if(EditorMode == Modes::Removing) {
 		if(HoveredObject) HoveredObject->Destroy();
 	}
+	else if (EditorMode == Modes::Editing) {
+		EditingSelection = true;
+	}
+
+	
 }
 
 //Places the object with the correct size
 void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 
-	if (EditorMode != Modes::Building) return;
+	if (EditorMode == Modes::Editing) {
+		if(Value.Get<bool>() == false) {
+			EditingSelection = false;
+			GEngine->AddOnScreenDebugMessage(10, 10, FColor::Red, "PlaceObject" );
+
+			for (auto Element : TaggedObjects) {
+				if(SelectedObjects.Contains(Element))
+				{
+					SelectedObjects.Remove(Element);
+					Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+					GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, "Add" );
+
+				}
+				else
+				{
+					SelectedObjects.Add(Element);
+					Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditingMaterial);
+					GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Blue, "Add" );
+
+				}
+			}
+			TaggedObjects.Empty();
+		}
+		
+		else if (HoveredObject) {
+			//HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditingMaterial);
+			if (!TaggedObjects.Contains(HoveredObject)) {
+				if (!SelectedObjects.Contains(HoveredObject)) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditingMaterial);
+				else
+				{
+					HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+					GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, "test" );
+
+				}
+				
+				TaggedObjects.Add(HoveredObject);
+			}
+			//return;
+		}
+
+		//for (auto Element : TaggedObjects) {
+		//	if(SelectedObjects.Contains(Element)) Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+		//	else Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditingMaterial);
+		//}
+		return;
+	}
+	else if (EditorMode != Modes::Building || AllObjects.IsEmpty()) return;
+
+
 
 	for (auto Element : GhostObjects) {
 		Element->Destroy();
@@ -266,7 +320,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 			FVector Location = FVector(StartPoint.X + (i * 100 * (XLen>0?1:-1)),StartPoint.Y + (j * 100 * (YLen>0?1:-1)), StartPoint.Z);
 			FRotator Rotation = DisplayMesh->GetComponentRotation();
 			FActorSpawnParameters SpawnInfo;
-			AActor* SpawnedActor = GetWorld()->SpawnActor(AllObjects[ObjectIndex], &Location, &Rotation, SpawnInfo);
+			AActor* SpawnedActor = GetWorld()->SpawnActor(AllObjects[ObjectIndex]->GetClass(), &Location, &Rotation, SpawnInfo);
 			count++;
 
 			//GhostObjects.Add(SpawnedActor);
@@ -345,8 +399,40 @@ void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 			}
 		}
 	}
-	AllObjects = ActorClasses;
+	//AllObjects = ActorClasses;
 
+	for (TSubclassOf<AActor> ActorClass : ActorClasses)
+	{
+		GEngine->AddOnScreenDebugMessage(20, 20, FColor::Red, "Actor : ");
+	
+		AllObjects.Add(ActorClass.GetDefaultObject());
+	}
+
+}
+
+void AHughLevelEditor::RemoveSelectedObjects() {
+	for (auto Element : SelectedObjects) {
+		Element->Destroy();
+	}
+	SelectedObjects.Empty();
+}
+
+void AHughLevelEditor::ClearSelectedObjects() {
+	for (auto Element : SelectedObjects) {
+		Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+	}
+	SelectedObjects.Empty();
+}
+
+void AHughLevelEditor::ReplaceSelectedObjects(AActor* NewObject) {
+	for (auto Element : SelectedObjects) {
+		//Element = NewObject;
+		FVector Location = Element->GetActorLocation();
+		FRotator Rotation = Element->GetActorRotation();
+		FActorSpawnParameters SpawnInfo;
+		AActor* SpawnedActor = GetWorld()->SpawnActor(NewObject->GetClass(), &Location, &Rotation, SpawnInfo);
+	}
+	RemoveSelectedObjects();
 }
 
 
