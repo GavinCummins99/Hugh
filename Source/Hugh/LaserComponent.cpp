@@ -1,4 +1,8 @@
 #include "LaserComponent.h"
+
+#include "DrawDebugHelpers.h"
+#include "Components/PrimitiveComponent.h"
+#include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
@@ -16,9 +20,9 @@ void ULaserComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 void ULaserComponent::UseLaser()
 {
 	//Variables for laser
-	FHitResult Hit;
 	FVector StartLocation = GetComponentLocation();
 	FVector EndLocation = GetComponentLocation() + (GetForwardVector() * 10000000);
+	FHitResult Hit;
 
 	//Bounce laser a max of 'i' times
 	for (int i = 0; i < MaxBounces; i++) {
@@ -36,8 +40,7 @@ void ULaserComponent::UseLaser()
 		else {
 			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
 		}
-
-		LaserHitResult = Hit;
 	}
+	LaserHitResult = Hit;
 }
 
