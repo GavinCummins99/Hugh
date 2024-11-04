@@ -1,6 +1,7 @@
 #include "LaserComponent.h"
 
 #include "DrawDebugHelpers.h"
+#include "JsonObjectConverter.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
