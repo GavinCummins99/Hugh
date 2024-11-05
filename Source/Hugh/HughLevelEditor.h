@@ -3,9 +3,11 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
+#include "LevelEditorGameMode.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "HughLevelEditor.generated.h"
 
 
@@ -56,6 +58,10 @@ protected:
 	AActor* HoveredObject;
 	bool EditingSelection;
 
+	TArray<AActor*> ObjectsInView;
+
+	ALevelEditorGameMode* GM;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -67,6 +73,7 @@ public:
 	void Pan(const FInputActionValue& Value);
 	void RotateCamera(const FInputActionValue& Value);
 	void Zoom(const FInputActionValue& Value);
+	void CamCollision();
 	void StartPlacing(const FInputActionValue& Value);
 	void PlaceObject(const FInputActionValue& Value);
 	UFUNCTION(BlueprintCallable) void SetObject(int Index);
