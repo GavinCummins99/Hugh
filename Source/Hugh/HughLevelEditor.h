@@ -58,7 +58,6 @@ protected:
 	AActor* HoveredObject;
 	bool EditingSelection;
 
-	TArray<AActor*> ObjectsInView;
 
 	ALevelEditorGameMode* GM;
 
@@ -66,6 +65,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
+
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<AActor*> ObjectsInView;
+
 	FVector Snap(FVector InVector);
 	void RotateObject();
 	void Trace();
@@ -74,6 +77,7 @@ public:
 	void RotateCamera(const FInputActionValue& Value);
 	void Zoom(const FInputActionValue& Value);
 	void CamCollision();
+	UFUNCTION(BlueprintCallable) void ShowWalls();
 	void StartPlacing(const FInputActionValue& Value);
 	void PlaceObject(const FInputActionValue& Value);
 	UFUNCTION(BlueprintCallable) void SetObject(int Index);

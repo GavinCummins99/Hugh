@@ -237,13 +237,8 @@ void AHughLevelEditor::Zoom(const FInputActionValue& Value) {
 
 //Hide actors in front of the camera
 void AHughLevelEditor::CamCollision() {
-	//Show hidden actors
-	for (auto Element : ObjectsInView){
-		//Element->SetActorHiddenInGame(false);
-		Element->GetComponentByClass<UStaticMeshComponent>()->SetWorldScale3D(FVector(1,1,4));
-		ObjectsInView.Remove(Element);
-	}
-
+	ShowWalls();
+	
 	//Vars for trace
 	TArray<FHitResult> HitResult;
 	FVector StartLocation = GetActorLocation();
@@ -265,6 +260,15 @@ void AHughLevelEditor::CamCollision() {
 		}
 		
 	}
+}
+
+//Show hidden actors
+void AHughLevelEditor::ShowWalls() {
+	//loop through all actors and hide them 
+	for (auto Element : ObjectsInView){
+		Element->GetComponentByClass<UStaticMeshComponent>()->SetWorldScale3D(FVector(1,1,4));
+	}
+	ObjectsInView.Empty();
 }
 
 void AHughLevelEditor::StartPlacing(const FInputActionValue& Value) {
