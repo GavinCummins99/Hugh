@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 
 #include "AsyncTreeDifferences.h"
+#include "LevelEditorGameMode.h"
 #include "AssetRegistry/AssetData.h"
 #include "Components/StaticMeshComponent.h"
 #include "Editor/BehaviorTreeEditor/Public/BehaviorTreeColors.h"
@@ -43,6 +44,7 @@ void AHughLevelEditor::BeginPlay()
 	Super::BeginPlay();
 
 	GetActorsFromFolder("/Game/Objects");
+	GM = Cast<ALevelEditorGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 	if (!PlayerController)
@@ -84,6 +86,8 @@ void AHughLevelEditor::Tick(float DeltaTime)
 		if (!Placing)StartPlacing(false);
 		PlaceObject(true);
 	}
+
+	if(GM->HideWalls) CamCollision();
 }
 
 // Called to bind functionality to input
@@ -224,12 +228,47 @@ void AHughLevelEditor::RotateCamera(const FInputActionValue& Value) {
 		CameraArm->SetWorldRotation(NewRotation);
 	} 
 }
-
 void AHughLevelEditor::Zoom(const FInputActionValue& Value) {
 	float ZoomAmount = Value.Get<float>() * ZoomSensitivity;
 	GEngine->AddOnScreenDebugMessage(10, 10, FColor::Red, "Zoom" );
 
 	CameraArm->TargetArmLength -= ZoomAmount;
+}
+
+//Hide actors in front of the camera
+void AHughLevelEditor::CamCollision() {
+	ShowWalls();
+	
+	//Vars for trace
+	TArray<FHitResult> HitResult;
+	FVector StartLocation = GetActorLocation();
+	FVector EndLocation = StartLocation + (GetActorForwardVector() * 500.0f);
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic));
+	TArray<AActor*> ActorsToIgnore;
+	ActorsToIgnore.Add(this);
+
+	//
+	if (UKismetSystemLibrary::SphereTraceMultiForObjects(GetWorld(), GetActorLocation() + (-EditorCamera->GetForwardVector() * 500), EditorCamera->GetComponentLocation(), 500, ObjectTypes, false, ActorsToIgnore, EDrawDebugTrace::None, HitResult, true)){
+		for (auto Result : HitResult){
+			if(Result.GetActor()->ActorHasTag("Wall")){
+				Result.GetActor()->GetComponentByClass<UStaticMeshComponent>()->SetWorldScale3D(FVector(1,1,1));
+				//Result.GetActor()->SetActorHiddenInGame(true);
+				ObjectsInView.Add(Result.GetActor());
+			}
+	
+		}
+		
+	}
+}
+
+//Show hidden actors
+void AHughLevelEditor::ShowWalls() {
+	//loop through all actors and hide them 
+	for (auto Element : ObjectsInView){
+		Element->GetComponentByClass<UStaticMeshComponent>()->SetWorldScale3D(FVector(1,1,4));
+	}
+	ObjectsInView.Empty();
 }
 
 void AHughLevelEditor::StartPlacing(const FInputActionValue& Value) {

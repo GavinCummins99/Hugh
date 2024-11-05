@@ -13,5 +13,7 @@ UCLASS()
 class HUGH_API ALevelEditorGameMode : public AGameMode
 {
 	GENERATED_BODY()
-	
+
+public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool HideWalls = false;
 };
