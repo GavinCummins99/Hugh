@@ -14,6 +14,24 @@
 UENUM(BlueprintType)
 enum class Modes : uint8  {Building, Removing, Editing };
 
+USTRUCT()
+struct FActorSaveData
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	FString ActorClass;
+
+	UPROPERTY()
+	FVector Location;
+
+	UPROPERTY()
+	FRotator Rotation;
+
+	UPROPERTY()
+	FVector Scale;
+};
+
 UCLASS()
 class HUGH_API AHughLevelEditor : public APawn
 {
@@ -64,6 +82,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UFUNCTION(BlueprintCallable) void SaveLevel(FString LevelName);
+	UFUNCTION(BlueprintCallable) void LoadLevel(FString LevelName);
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 
