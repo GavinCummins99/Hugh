@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "NarrativeNodeBase.h"
+#include "Engine/Texture2d.h"
 #include "MovieSceneSequencePlayer.h"
 #include "DialogueSM.generated.h"
 
@@ -77,6 +78,12 @@ public:
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue Line")
 	ELineDuration Duration;
+
+	/*
+	NPC Portrait that allows the image on hte display to change on a node by nose basis. If no image is present then it will not change.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue Line")
+	UTexture2D* Portrait;
 
 	/**
 	The overridden seconds the line should play for 
