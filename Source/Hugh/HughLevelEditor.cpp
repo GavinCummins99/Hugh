@@ -70,6 +70,20 @@ void AHughLevelEditor::BeginPlay()
 
 }
 
+void AHughLevelEditor::SetInputMap() {
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("TEST FUNCTION CALLED"));
+
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->ClearAllMappings();
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
+}
+
+
 // Called every frame
 void AHughLevelEditor::Tick(float DeltaTime)
 {
