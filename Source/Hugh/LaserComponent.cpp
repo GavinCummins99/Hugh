@@ -37,11 +37,12 @@ void ULaserComponent::UseLaser()
 
 			//Break out of loop of hit component is not mirror
 			if (!Hit.Component->ComponentHasTag("Mirror")) break;
+
+			LaserHitResult = Hit;
 		}
 		else {
 			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
 		}
 	}
-	LaserHitResult = Hit;
 }
 

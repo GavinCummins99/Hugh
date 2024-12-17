@@ -11,6 +11,7 @@
 #include "AsyncTreeDifferences.h"
 #include "EngineUtils.h"
 #include "JsonObjectConverter.h"
+#include "EnhancedInputSubsystems.h"
 #include "LevelEditorGameMode.h"
 #include "AssetRegistry/AssetData.h"
 #include "Components/StaticMeshComponent.h"
@@ -19,6 +20,7 @@
 #include "Engine/Blueprint.h"
 #include "Engine/Engine.h"
 #include "Engine/GameViewportClient.h"
+#include "Engine/LocalPlayer.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -53,7 +55,13 @@ void AHughLevelEditor::BeginPlay()
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 	if (!PlayerController)
 		return;
-
+	
+	// In BeginPlay(), after your existing code:
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(DefaultMappingContext, 0);
+	}
+	
 	PlayerController->SetShowMouseCursor(true);
 	FInputModeGameAndUI InputMode;
 	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
@@ -61,6 +69,20 @@ void AHughLevelEditor::BeginPlay()
 	PlayerController->SetInputMode(InputMode);
 
 }
+
+void AHughLevelEditor::SetInputMap() {
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("TEST FUNCTION CALLED"));
+
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->ClearAllMappings();
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
+}
+
 
 // Called every frame
 void AHughLevelEditor::Tick(float DeltaTime)
@@ -91,7 +113,7 @@ void AHughLevelEditor::Tick(float DeltaTime)
 		PlaceObject(true);
 	}
 
-	if(GM->HideWalls) CamCollision();
+	//if(GM->HideWalls) CamCollision();
 }
 
 void AHughLevelEditor::SaveLevel(FString LevelName)
@@ -392,7 +414,7 @@ void AHughLevelEditor::RotateCamera(const FInputActionValue& Value) {
 }
 void AHughLevelEditor::Zoom(const FInputActionValue& Value) {
 	float ZoomAmount = Value.Get<float>() * ZoomSensitivity;
-	GEngine->AddOnScreenDebugMessage(10, 10, FColor::Red, "Zoom" );
+	GEngine->AddOnScreenDebugMessage(10, 10, FColor::Red, "Zoom" + FString::SanitizeFloat(ZoomAmount));
 
 	CameraArm->TargetArmLength -= ZoomAmount;
 }
@@ -453,6 +475,7 @@ void AHughLevelEditor::StartPlacing(const FInputActionValue& Value) {
 
 //Places the object with the correct size
 void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
+
 
 	if (EditorMode == Modes::Editing) {
 		if(Value.Get<bool>() == false) {

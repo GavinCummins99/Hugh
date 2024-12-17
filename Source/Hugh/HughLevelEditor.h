@@ -7,12 +7,13 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
 #include "HughLevelEditor.generated.h"
 
 
 UENUM(BlueprintType)
-enum class Modes : uint8  {Building, Removing, Editing };
+enum class Modes : uint8  {Building, Removing, Editing, None};
 
 USTRUCT()
 struct FActorSaveData
@@ -86,6 +87,7 @@ public:
 	UFUNCTION(BlueprintCallable) void LoadLevel(FString LevelName);
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
+	UFUNCTION(BlueprintCallable) void SetInputMap();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<AActor*> ObjectsInView;
 
@@ -109,6 +111,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* GhostMaterial;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* RemovingMaterial;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* EditingMaterial;
+
+
 	
 	float LookSensitiviy = 3;
 	float ZoomSensitivity = 75;
