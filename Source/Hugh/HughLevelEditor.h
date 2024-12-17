@@ -12,7 +12,7 @@
 
 
 UENUM(BlueprintType)
-enum class Modes : uint8  {Building, Removing, Editing };
+enum class Modes : uint8  {Building, Removing, Editing, None};
 
 USTRUCT()
 struct FActorSaveData
