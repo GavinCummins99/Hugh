@@ -4,7 +4,6 @@
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
 #include "LevelEditorGameMode.h"
-#include "ObjectProperties.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -106,7 +105,6 @@ public:
 	UFUNCTION(BlueprintCallable) void SetObject(int Index);
 	UFUNCTION(BlueprintCallable)void SetMode(Modes NewMode);
 	void GetActorsFromFolder(const FString& InFolderPath);
-	UFUNCTION(BlueprintCallable) UObjectProperties* GetObjectProperties();
 	UFUNCTION(BlueprintCallable) void RemoveSelectedObjects();
 	UFUNCTION(BlueprintCallable) void ClearSelectedObjects();
 	UFUNCTION(BlueprintCallable) void ReplaceSelectedObjects(AActor* NewObject);
