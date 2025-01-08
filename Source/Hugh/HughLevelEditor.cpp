@@ -13,6 +13,7 @@
 #include "JsonObjectConverter.h"
 #include "EnhancedInputSubsystems.h"
 #include "LevelEditorGameMode.h"
+#include "ObjectProperties.h"
 #include "AssetRegistry/AssetData.h"
 #include "Components/StaticMeshComponent.h"
 #include "Editor/BehaviorTreeEditor/Public/BehaviorTreeColors.h"
@@ -21,6 +22,8 @@
 #include "Engine/Engine.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/LocalPlayer.h"
+#include "Engine/SCS_Node.h"
+#include "Engine/SimpleConstructionScript.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -633,6 +636,44 @@ void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 		AllObjects.Add(ActorClass.GetDefaultObject());
 	}
 
+}
+
+UObjectProperties* AHughLevelEditor::GetObjectProperties()
+{
+	if (AllObjects.Num() == 0 || !AllObjects[0]) return nullptr;
+    
+	UClass* ActorClass = AllObjects[0]->GetClass();
+	UBlueprint* Blueprint = Cast<UBlueprint>(ActorClass->ClassGeneratedBy);
+    
+	if (Blueprint && Blueprint->BlueprintGeneratedClass)
+	{
+		// Print the class we're looking at
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
+			FString::Printf(TEXT("Checking class: %s"), *Blueprint->BlueprintGeneratedClass->GetName()));
+
+		// Get components from the generated class
+		TArray<TObjectPtr<UActorComponent>> ComponentTemplates = Blueprint->BlueprintGeneratedClass->ComponentTemplates;
+        
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
+			FString::Printf(TEXT("Found %d component templates"), ComponentTemplates.Num()));
+
+		// Look through all component templates
+		for (UActorComponent* Component : ComponentTemplates)
+		{
+			if (Component)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
+					FString::Printf(TEXT("Component: %s"), *Component->GetClass()->GetName()));
+                
+				if (UObjectProperties* ObjProps = Cast<UObjectProperties>(Component))
+				{
+					return ObjProps;
+				}
+			}
+		}
+	}
+    
+	return nullptr;
 }
 
 void AHughLevelEditor::RemoveSelectedObjects() {
