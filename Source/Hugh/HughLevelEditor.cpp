@@ -12,6 +12,7 @@
 #include "EngineUtils.h"
 #include "JsonObjectConverter.h"
 #include "EnhancedInputSubsystems.h"
+#include "Engine/BlueprintGeneratedClass.h"
 #include "LevelEditorGameMode.h"
 #include "ObjectProperties.h"
 #include "AssetRegistry/AssetData.h"
@@ -189,8 +190,16 @@ void AHughLevelEditor::SaveLevel(FString LevelName)
     }
 }
 
-void AHughLevelEditor::LoadLevel(FString LevelName)
-{
+void AHughLevelEditor::LoadLevel(FString LevelName) {
+
+	//Unload previous level
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), TEXT("LevelEditorObject"), FoundActors);
+
+	for (auto Element : FoundActors){
+		Element->Destroy();    
+	}
+	
     FString JsonString;
     FString LoadPath = FPaths::ProjectSavedDir() + "LevelSaves/" + LevelName + ".json";
     
@@ -553,7 +562,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 			//GhostObjects.Add(SpawnedActor);
 			if (Value.Get<bool>()) {
 				GhostObjects.Add(SpawnedActor);
-				SpawnedActor->GetComponentByClass<UStaticMeshComponent>()->SetMaterial(0, GhostMaterial);
+				//SpawnedActor->GetComponentByClass<UStaticMeshComponent>()->SetMaterial(0, GhostMaterial);
 				SpawnedActor->SetActorEnableCollision(ECollisionEnabled::NoCollision);
 
 			}
@@ -645,14 +654,15 @@ UObjectProperties* AHughLevelEditor::GetObjectProperties()
 	UClass* ActorClass = AllObjects[0]->GetClass();
 	UBlueprint* Blueprint = Cast<UBlueprint>(ActorClass->ClassGeneratedBy);
     
-	if (Blueprint && Blueprint->BlueprintGeneratedClass)
+	if (Blueprint && Cast<UBlueprintGeneratedClass>(Blueprint->GeneratedClass))
 	{
 		// Print the class we're looking at
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
-			FString::Printf(TEXT("Checking class: %s"), *Blueprint->BlueprintGeneratedClass->GetName()));
+			FString::Printf(TEXT("Checking class: %s"), *Cast<UBlueprintGeneratedClass>(Blueprint->GeneratedClass)->GetName()));
 
 		// Get components from the generated class
-		TArray<TObjectPtr<UActorComponent>> ComponentTemplates = Blueprint->BlueprintGeneratedClass->ComponentTemplates;
+		TArray<TObjectPtr<UActorComponent>> ComponentTemplates = Cast<UBlueprintGeneratedClass>(Blueprint->GeneratedClass)->ComponentTemplates;
+
         
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
 			FString::Printf(TEXT("Found %d component templates"), ComponentTemplates.Num()));
