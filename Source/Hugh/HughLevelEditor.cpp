@@ -647,6 +647,7 @@ void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 
 }
 
+/*
 UObjectProperties* AHughLevelEditor::GetObjectProperties()
 {
 	if (AllObjects.Num() == 0 || !AllObjects[0]) return nullptr;
@@ -685,7 +686,7 @@ UObjectProperties* AHughLevelEditor::GetObjectProperties()
     
 	return nullptr;
 }
-
+*/
 void AHughLevelEditor::RemoveSelectedObjects() {
 	for (auto Element : SelectedObjects) {
 		Element->Destroy();
