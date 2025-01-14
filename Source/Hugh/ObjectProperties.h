@@ -27,5 +27,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) FString ObjectName;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UTexture2D* ObjectImage;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere) FColor ObjectColor;
+	UPROPERTY(BlueprintReadWrite) bool EmittingLight = false;
+
 		
 };

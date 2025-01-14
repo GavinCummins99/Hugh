@@ -93,7 +93,7 @@ void AHughLevelEditor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Trace();
-	GEngine->AddOnScreenDebugMessage(5, 5, FColor::Blue, "---- Pan : " + PanButtonPressed);
+	//GEngine->AddOnScreenDebugMessage(5, 5, FColor::Blue, "---- Pan : " + PanButtonPressed);
 
 	//APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 	//if (!PlayerController)

@@ -28,7 +28,10 @@ void ULaserComponent::UseLaser()
 	//Bounce laser a max of 'i' times
 	for (int i = 0; i < MaxBounces; i++) {
 		//Shoot laser
-		if (GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Camera)) {
+		GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Visibility);
+		LaserHitResult = Hit;
+
+		if (Hit.bBlockingHit) {
 			DrawDebugLine(GetWorld(), StartLocation, Hit.Location, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
 
 			//Bounce laser
@@ -38,7 +41,6 @@ void ULaserComponent::UseLaser()
 			//Break out of loop of hit component is not mirror
 			if (!Hit.Component->ComponentHasTag("Mirror")) break;
 
-			LaserHitResult = Hit;
 		}
 		else {
 			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
