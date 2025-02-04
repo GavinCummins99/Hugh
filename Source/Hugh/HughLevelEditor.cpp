@@ -1,6 +1,7 @@
 #include "HughLevelEditor.h"
 //#include "EnhancedInputComponent.h"
 
+#include "ActorFolder.h"
 #include "Engine/AssetManager.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Class.h"
@@ -9,6 +10,7 @@
 #include "Misc/FileHelper.h"
 #include "EngineUtils.h"
 #include "AsyncTreeDifferences.h"
+#include "EditorActorFolders.h"
 #include "EngineUtils.h"
 #include "JsonObjectConverter.h"
 #include "EnhancedInputSubsystems.h"
@@ -404,7 +406,7 @@ void AHughLevelEditor::RotateCamera(const FInputActionValue& Value) {
 		FVector RightVector = FVector::CrossProduct(ForwardVector, FVector::UpVector);
 		FVector PanDirection = (-ForwardVector * PanVector.Y + RightVector * PanVector.X);
 		
-		CameraArm->AddWorldOffset(PanDirection * PanStrenght * PanDir);
+		CameraArm->AddWorldOffset(PanDirection * PanStrenght * PanDir * (PanDir == -1? 5 : 1));
 	}
 	else if (b_CanLook) {
 		FVector2D LookAxisVector = Value.Get<FVector2D>() * LookSensitiviy;
@@ -424,6 +426,7 @@ void AHughLevelEditor::RotateCamera(const FInputActionValue& Value) {
 		CameraArm->SetWorldRotation(NewRotation);
 	} 
 }
+
 void AHughLevelEditor::Zoom(const FInputActionValue& Value) {
 	float ZoomAmount = Value.Get<float>() * ZoomSensitivity;
 	GEngine->AddOnScreenDebugMessage(10, 10, FColor::Red, "Zoom" + FString::SanitizeFloat(ZoomAmount));
@@ -487,8 +490,7 @@ void AHughLevelEditor::StartPlacing(const FInputActionValue& Value) {
 
 //Places the object with the correct size
 void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
-
-
+	
 	if (EditorMode == Modes::Editing) {
 		if(Value.Get<bool>() == false) {
 			EditingSelection = false;
@@ -536,9 +538,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 		return;
 	}
 	else if (EditorMode != Modes::Building || AllObjects.IsEmpty()) return;
-
-
-
+	
 	for (auto Element : GhostObjects) {
 		Element->Destroy();
 	}
@@ -556,7 +556,23 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 			FVector Location = FVector(StartPoint.X + (i * 100 * (XLen>0?1:-1)),StartPoint.Y + (j * 100 * (YLen>0?1:-1)), StartPoint.Z);
 			FRotator Rotation = DisplayMesh->GetComponentRotation();
 			FActorSpawnParameters SpawnInfo;
+			SpawnInfo.Template = AllObjects[ObjectIndex];
 			AActor* SpawnedActor = GetWorld()->SpawnActor(AllObjects[ObjectIndex]->GetClass(), &Location, &Rotation, SpawnInfo);
+
+			///
+			if (SpawnedActor)
+			{
+				UObjectProperties* SourceOP = AllObjects[ObjectIndex]->FindComponentByClass<UObjectProperties>();
+				UObjectProperties* TargetOP = SpawnedActor->FindComponentByClass<UObjectProperties>();
+ 
+				if (SourceOP && TargetOP)
+				{
+					// Copy all properties from source to target
+					UEngine::CopyPropertiesForUnrelatedObjects(SourceOP, TargetOP);
+				}
+			}
+			
+			SpawnedActor->SetFolderPath("Level Editor");
 			count++;
 
 			//GhostObjects.Add(SpawnedActor);
@@ -584,6 +600,17 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 	GEngine->AddOnScreenDebugMessage(-5, 0, FColor::Red, "Placed : " + FString::FromInt(count));
 }
 
+
+//Adds an array of actors to the selected folder
+void AddActorsToFolder(const TArray<AActor*>& ActorsToAdd, FName FolderName) {
+	for (AActor* Actor : ActorsToAdd) {
+		if (Actor)
+		{
+			Actor->SetFolderPath(FolderName);
+		}
+	}
+}
+
 //Changes object
 void AHughLevelEditor::SetObject(int Index) {
 	ObjectIndex = Index;
@@ -603,6 +630,7 @@ void AHughLevelEditor::SetMode(Modes NewMode) {
 
 }
 
+/*
 void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 {
 	TArray<TSubclassOf<AActor>> ActorClasses;
@@ -638,15 +666,64 @@ void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 	}
 	//AllObjects = ActorClasses;
 
-	for (TSubclassOf<AActor> ActorClass : ActorClasses)
-	{
+	for (TSubclassOf<AActor> ActorClass : ActorClasses) {
 		GEngine->AddOnScreenDebugMessage(20, 20, FColor::Red, "Actor : ");
-	
+		
 		AllObjects.Add(ActorClass.GetDefaultObject());
 	}
 
 }
+*/
 
+void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
+{
+	// Clear existing objects first
+	AllObjects.Empty();
+    
+	TArray<TSubclassOf<AActor>> ActorClasses;
+	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
+	IAssetRegistry& AssetRegistry = AssetRegistryModule.Get();
+
+	FARFilter Filter;
+	Filter.PackagePaths.Add(*InFolderPath);
+	Filter.ClassNames.Add(UBlueprint::StaticClass()->GetFName());
+	Filter.bRecursivePaths = true;
+
+	TArray<FAssetData> AssetData;
+	AssetRegistry.GetAssets(Filter, AssetData);
+
+	for (const FAssetData& Asset : AssetData)
+	{
+		UObject* AssetObject = Asset.GetAsset();
+        
+		if (UBlueprint* Blueprint = Cast<UBlueprint>(AssetObject))
+		{
+			if (Blueprint->GeneratedClass->IsChildOf(AActor::StaticClass()))
+			{
+				// Setup spawn parameters
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+				SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+				// Get the world and spawn the actor
+				if (UWorld* World = GetWorld())
+				{
+					AActor* SpawnedActor = World->SpawnActor<AActor>(
+						Blueprint->GeneratedClass.Get(),  // Use the generated class from the Blueprint
+						FVector(0.0f, 0.0f, 0.0f),       // Location
+						FRotator(0.0f, 0.0f, 0.0f),      // Rotation
+						SpawnParams
+					);
+
+					if (SpawnedActor)
+					{
+						AllObjects.Add(SpawnedActor);
+					}
+				}
+			}
+		}
+	}
+}
 UObjectProperties* AHughLevelEditor::GetObjectProperties()
 {
 	if (AllObjects.Num() == 0 || !AllObjects[0]) return nullptr;
