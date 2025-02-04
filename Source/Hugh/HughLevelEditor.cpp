@@ -48,6 +48,8 @@ AHughLevelEditor::AHughLevelEditor()
 	EditorCamera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	EditorCamera->SetupAttachment(CameraArm);
 	//EditorCamera->SetRelativeRotation(FRotator(-45,0,0));
+
+	ObjectProperties = CreateDefaultSubobject<UObjectProperties>("Object Properties");
 }
 
 // Called when the game starts or when spawned
@@ -562,14 +564,14 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 			///
 			if (SpawnedActor)
 			{
-				UObjectProperties* SourceOP = AllObjects[ObjectIndex]->FindComponentByClass<UObjectProperties>();
+				//UObjectProperties* SourceOP = AllObjects[ObjectIndex]->FindComponentByClass<UObjectProperties>();
 				UObjectProperties* TargetOP = SpawnedActor->FindComponentByClass<UObjectProperties>();
  
-				if (SourceOP && TargetOP)
-				{
+				if (ObjectProperties && TargetOP)
+				//{
 					// Copy all properties from source to target
-					UEngine::CopyPropertiesForUnrelatedObjects(SourceOP, TargetOP);
-				}
+					UEngine::CopyPropertiesForUnrelatedObjects(ObjectProperties, TargetOP);
+				//}
 			}
 			
 			SpawnedActor->SetFolderPath("Level Editor");
@@ -630,7 +632,7 @@ void AHughLevelEditor::SetMode(Modes NewMode) {
 
 }
 
-/*
+
 void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 {
 	TArray<TSubclassOf<AActor>> ActorClasses;
@@ -673,57 +675,10 @@ void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 	}
 
 }
-*/
 
-void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
-{
-	// Clear existing objects first
-	AllObjects.Empty();
-    
-	TArray<TSubclassOf<AActor>> ActorClasses;
-	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
-	IAssetRegistry& AssetRegistry = AssetRegistryModule.Get();
 
-	FARFilter Filter;
-	Filter.PackagePaths.Add(*InFolderPath);
-	Filter.ClassNames.Add(UBlueprint::StaticClass()->GetFName());
-	Filter.bRecursivePaths = true;
 
-	TArray<FAssetData> AssetData;
-	AssetRegistry.GetAssets(Filter, AssetData);
 
-	for (const FAssetData& Asset : AssetData)
-	{
-		UObject* AssetObject = Asset.GetAsset();
-        
-		if (UBlueprint* Blueprint = Cast<UBlueprint>(AssetObject))
-		{
-			if (Blueprint->GeneratedClass->IsChildOf(AActor::StaticClass()))
-			{
-				// Setup spawn parameters
-				FActorSpawnParameters SpawnParams;
-				SpawnParams.Owner = this;
-				SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
-				// Get the world and spawn the actor
-				if (UWorld* World = GetWorld())
-				{
-					AActor* SpawnedActor = World->SpawnActor<AActor>(
-						Blueprint->GeneratedClass.Get(),  // Use the generated class from the Blueprint
-						FVector(0.0f, 0.0f, 0.0f),       // Location
-						FRotator(0.0f, 0.0f, 0.0f),      // Rotation
-						SpawnParams
-					);
-
-					if (SpawnedActor)
-					{
-						AllObjects.Add(SpawnedActor);
-					}
-				}
-			}
-		}
-	}
-}
 UObjectProperties* AHughLevelEditor::GetObjectProperties()
 {
 	if (AllObjects.Num() == 0 || !AllObjects[0]) return nullptr;

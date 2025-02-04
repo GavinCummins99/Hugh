@@ -43,7 +43,7 @@ void ULaserComponent::UseLaser()
 
 		}
 		else {
-			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 5);
+			DrawDebugLine(GetWorld(), StartLocation, EndLocation, LaserColor, false, GetWorld()->GetDeltaSeconds(), 0, 7);
 		}
 	}
 }
