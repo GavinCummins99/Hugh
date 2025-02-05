@@ -20,14 +20,20 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void Push_Move(FVector TargetLocation);
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+
+	//Objects settings
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) FString ObjectName;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UTexture2D* ObjectImage;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) FColor ObjectColor;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool Pushable = false;
+	
+	//Public properties
 	UPROPERTY(BlueprintReadWrite) bool EmittingLight = false;
 
 		
