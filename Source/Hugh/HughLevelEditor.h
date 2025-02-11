@@ -114,6 +114,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* RemovingMaterial;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UMaterial* EditingMaterial;
 
+	void AddActorsToFolder(const TArray<AActor*>& ActorsToAdd, FName FolderName);
 
 	
 	float LookSensitiviy = 3;
@@ -128,11 +129,11 @@ public:
 	bool PanButtonPressed;
 
 	float PanStrenght = 40;
-	float PanDir = -1;
+	float PanDir = 1;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) Modes EditorMode;
 	UPROPERTY(BlueprintReadOnly) TArray<AActor*> TaggedObjects;
 	UPROPERTY(BlueprintReadOnly) TArray<AActor*> SelectedObjects;
 
-	
+	UPROPERTY(BlueprintReadWrite,EditAnywhere) UObjectProperties* ObjectProperties;
 };
