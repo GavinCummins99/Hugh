@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
+#include "HLE_SaveLoad.h"
 #include "HughLevelEditor.generated.h"
 
 
@@ -84,9 +85,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UFUNCTION(BlueprintCallable) void SaveLevel(FString LevelName);
-	UFUNCTION(BlueprintCallable) void LoadLevel(FString LevelName);
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
+
+	UPROPERTY(BlueprintReadWrite) UHLE_SaveLoad* SaveLoad; 
 
 	UFUNCTION(BlueprintCallable) void SetInputMap();
 

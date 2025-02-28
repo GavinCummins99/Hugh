@@ -16,9 +16,7 @@ public:
 	// Sets default values for this component's properties
 	UHLE_SaveLoad();
 
-	//UFUNCTION(BlueprintCallable )void LoadLevel(FString LevelName);
+	UFUNCTION(BlueprintCallable )void LoadLevel(FString LevelName, FString LoadPath);
 	UFUNCTION(BlueprintCallable) void SaveLevel(FString LevelName, FString SavePath) const;
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+
 };
