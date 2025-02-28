@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
-#include "LevelEditorGameMode.h"
+#include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"

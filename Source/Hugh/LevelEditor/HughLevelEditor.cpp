@@ -15,7 +15,7 @@
 #include "JsonObjectConverter.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/BlueprintGeneratedClass.h"
-#include "LevelEditorGameMode.h"
+#include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
 #include "AssetRegistry/AssetData.h"
 #include "Components/StaticMeshComponent.h"
