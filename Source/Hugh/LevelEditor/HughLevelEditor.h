@@ -93,6 +93,11 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<AActor*> ObjectsInView;
 
+	
+	// This will create the variable type dropdown you're looking for
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable Selection", meta = (PinType))
+	FEdGraphPinType VariableType;
+
 	FVector Snap(FVector InVector);
 	void RotateObject();
 	void Trace();
