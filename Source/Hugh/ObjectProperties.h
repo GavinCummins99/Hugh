@@ -21,6 +21,8 @@ protected:
 	virtual void BeginPlay() override;
 
 	void Push_Move(FVector TargetLocation);
+	UFUNCTION() void OnParentHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
 
 public:	
 	// Called every frame
