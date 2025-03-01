@@ -18,5 +18,5 @@ public:
 
 	UFUNCTION(BlueprintCallable )void LoadLevel(FString LevelName, FString LoadPath);
 	UFUNCTION(BlueprintCallable) void SaveLevel(FString LevelName, FString SavePath) const;
-
+	
 };

@@ -138,49 +138,16 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName, FString SavePath) const {
             if (ObjectPropertiesComponent) {
                 UObjectProperties* PropertiesComp = Cast<UObjectProperties>(ObjectPropertiesComponent);
                 if (PropertiesComp) {
+                    // Get the ObjectColor property
+                    FColor ObjectColor = PropertiesComp->ObjectColor;
+                    
+                    // Convert to hex format #RRGGBBAA
+                    FString HexColor = FString::Printf(TEXT("#%02X%02X%02X%02X"), 
+                        ObjectColor.R, ObjectColor.G, ObjectColor.B, ObjectColor.A);
+                    
                     // Create a new JSON object to store component properties
                     TSharedPtr<FJsonObject> PropertiesJson = MakeShared<FJsonObject>();
-                    
-                    // Use reflection to get all properties of the component
-                    for (TFieldIterator<FProperty> PropIt(PropertiesComp->GetClass()); PropIt; ++PropIt) {
-                        FProperty* Property = *PropIt;
-                        
-                        // Skip properties that are from parent classes we don't care about
-                        if (Property->GetOwnerClass()->GetName().StartsWith("Object") || 
-                            Property->GetOwnerClass()->GetName().StartsWith("ActorComponent") ||
-                            Property->GetOwnerClass()->GetName().StartsWith("SceneComponent")) {
-                            continue;
-                        }
-                        
-                        // Get property value
-                        void* PropertyValuePtr = Property->ContainerPtrToValuePtr<void>(PropertiesComp);
-                        
-                        if (FStrProperty* StrProperty = CastField<FStrProperty>(Property)) {
-                            // Handle string properties
-                            PropertiesJson->SetStringField(Property->GetName(), StrProperty->GetPropertyValue(PropertyValuePtr));
-                        }
-                        else if (FIntProperty* IntProperty = CastField<FIntProperty>(Property)) {
-                            // Handle integer properties
-                            PropertiesJson->SetNumberField(Property->GetName(), IntProperty->GetPropertyValue(PropertyValuePtr));
-                        }
-                        else if (FFloatProperty* FloatProperty = CastField<FFloatProperty>(Property)) {
-                            // Handle float properties
-                            PropertiesJson->SetNumberField(Property->GetName(), FloatProperty->GetPropertyValue(PropertyValuePtr));
-                        }
-                        else if (FBoolProperty* BoolProperty = CastField<FBoolProperty>(Property)) {
-                            // Handle boolean properties
-                            PropertiesJson->SetBoolField(Property->GetName(), BoolProperty->GetPropertyValue(PropertyValuePtr));
-                        }
-                        else if (FNameProperty* NameProperty = CastField<FNameProperty>(Property)) {
-                            // Handle FName properties
-                            PropertiesJson->SetStringField(Property->GetName(), NameProperty->GetPropertyValue(PropertyValuePtr).ToString());
-                        }
-                        else if (FTextProperty* TextProperty = CastField<FTextProperty>(Property)) {
-                            // Handle FText properties
-                            PropertiesJson->SetStringField(Property->GetName(), TextProperty->GetPropertyValue(PropertyValuePtr).ToString());
-                        }
-                        // Add more property types as needed
-                    }
+                    PropertiesJson->SetStringField("ObjectColor", HexColor);
                     
                     // Add the properties object to the actor JSON
                     ActorJson->SetObjectField("Properties", PropertiesJson);
@@ -220,42 +187,14 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName, FString SavePath) const {
             FString::FromInt((int32)RotationObj->GetNumberField("Yaw")) + ", \"Roll\": " + 
             FString::FromInt((int32)RotationObj->GetNumberField("Roll")) + "}";
         
-        // Add Properties if they exist
+        // Add ObjectColor if it exists
         if (ActorObj->HasField("Properties")) {
-            OutputString += ",\n\t\t\t\"Properties\": {\n";
-            
-            // Get all properties
             const TSharedPtr<FJsonObject>& PropertiesObj = ActorObj->GetObjectField("Properties");
-            TArray<FString> PropertyNames;
-            PropertiesObj->Values.GetKeys(PropertyNames);
-            
-            // Add each property
-            for (int32 j = 0; j < PropertyNames.Num(); j++) {
-                const FString& PropName = PropertyNames[j];
-                const TSharedPtr<FJsonValue>& PropValue = PropertiesObj->Values[PropName];
-                
-                OutputString += "\t\t\t\t\"" + PropName + "\": ";
-                
-                // Format based on value type
-                if (PropValue->Type == EJson::String) {
-                    OutputString += "\"" + PropValue->AsString() + "\"";
-                } 
-                else if (PropValue->Type == EJson::Number) {
-                    OutputString += FString::SanitizeFloat(PropValue->AsNumber());
-                }
-                else if (PropValue->Type == EJson::Boolean) {
-                    OutputString += PropValue->AsBool() ? "true" : "false";
-                }
-                
-                // Add comma if not the last property
-                if (j < PropertyNames.Num() - 1) {
-                    OutputString += ",\n";
-                } else {
-                    OutputString += "\n";
-                }
+            if (PropertiesObj->HasField("ObjectColor")) {
+                OutputString += ",\n\t\t\t\"Properties\": {\n";
+                OutputString += "\t\t\t\t\"ObjectColor\": \"" + PropertiesObj->GetStringField("ObjectColor") + "\"\n";
+                OutputString += "\t\t\t}";
             }
-            
-            OutputString += "\t\t\t}";
         }
         
         // Add closing brace (with comma if not the last item)
@@ -360,12 +299,36 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName, FString LoadPath) {
         AActor* NewActor = World->SpawnActor<AActor>(ActorClass, Location, Rotation, SpawnParams);
         if (NewActor)
         {
-            // We're no longer storing Scale in our JSON, so we use default scale (1,1,1)
+            // Add the LevelEditorObject tag
             NewActor->Tags.Add(FName("LevelEditorObject"));
+            
+            // Check if we have Properties to restore
+            const TSharedPtr<FJsonObject>* PropertiesObj;
+            if (ActorObject->TryGetObjectField("Properties", PropertiesObj))
+            {
+                // Try to find the ObjectProperties component on the actor
+                UObjectProperties* PropertiesComp = Cast<UObjectProperties>(NewActor->GetComponentByClass(UObjectProperties::StaticClass()));
+                if (PropertiesComp)
+                {
+                    // Check if we have an ObjectColor property
+                    FString HexColorString;
+                    if ((*PropertiesObj)->TryGetStringField("ObjectColor", HexColorString))
+                    {
+                        // Parse the hex color string
+                        if (HexColorString.StartsWith("#") && HexColorString.Len() == 9)
+                        {
+                            // Remove the # character
+                            FString ColorHex = HexColorString.Mid(1);
+                            
+                            // Convert the hex string directly to a color
+                            PropertiesComp->ObjectColor = FColor::FromHex(ColorHex);
+                        }
+                    }
+                }
+            }
         }
     }
     
     UE_LOG(LogTemp, Log, TEXT("Successfully loaded level from: %s"), *FullPath);
 }
-
 
