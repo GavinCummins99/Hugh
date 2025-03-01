@@ -19,7 +19,7 @@ void UObjectProperties::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	// 
 	
 }
 
