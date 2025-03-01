@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 using UnrealBuildTool;
+using System.IO;
 
 public class Hugh : ModuleRules
 {
@@ -11,6 +12,9 @@ public class Hugh : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Json", "JsonUtilities"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
+
+        
+		PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "LevelEditor"));
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

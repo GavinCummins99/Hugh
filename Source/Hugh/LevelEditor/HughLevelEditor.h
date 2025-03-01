@@ -3,13 +3,14 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
-#include "LevelEditorGameMode.h"
+#include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
+#include "HLE_SaveLoad.h"
 #include "HughLevelEditor.generated.h"
 
 
@@ -84,13 +85,18 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UFUNCTION(BlueprintCallable) void SaveLevel(FString LevelName);
-	UFUNCTION(BlueprintCallable) void LoadLevel(FString LevelName);
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
+
+	UPROPERTY(BlueprintReadWrite) UHLE_SaveLoad* SaveLoad; 
 
 	UFUNCTION(BlueprintCallable) void SetInputMap();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<AActor*> ObjectsInView;
+
+	
+	// This will create the variable type dropdown you're looking for
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable Selection", meta = (PinType))
+	FEdGraphPinType VariableType;
 
 	FVector Snap(FVector InVector);
 	void RotateObject();
