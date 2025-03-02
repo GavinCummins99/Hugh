@@ -21,12 +21,15 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	bool DebugEnabled = false;
 	void Push_Move(FVector TargetLocation);
 	UFUNCTION() void OnParentHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
 
+
 public:	
 	// Called every frame
+	UPROPERTY()FVector Target;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 

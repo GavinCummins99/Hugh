@@ -31,6 +31,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Materials/Material.h"
+#include "HLE_Movement.h"
 #include "Runtime/Media/Public/IMediaControls.h"
 
 // Sets default values
@@ -42,11 +43,11 @@ AHughLevelEditor::AHughLevelEditor()
 	DisplayMesh = CreateDefaultSubobject<UStaticMeshComponent>("Display mesh");
 	DisplayMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	CameraArm = CreateDefaultSubobject<USpringArmComponent>("Camera arm");
-	SetRootComponent(CameraArm);
+	//CameraArm = CreateDefaultSubobject<USpringArmComponent>("Camera arm");
+	//SetRootComponent(CameraArm);
 
-	EditorCamera = CreateDefaultSubobject<UCameraComponent>("Camera");
-	EditorCamera->SetupAttachment(CameraArm);
+	//EditorCamera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	//EditorCamera->SetupAttachment(CameraArm);
 	//EditorCamera->SetRelativeRotation(FRotator(-45,0,0));
 
 	ObjectProperties = CreateDefaultSubobject<UObjectProperties>("Object Properties");
@@ -58,6 +59,7 @@ void AHughLevelEditor::BeginPlay()
 	Super::BeginPlay();
 
 	SaveLoad = NewObject<UHLE_SaveLoad>(this);
+	HLE_CameraComponent = NewObject<UHLE_Movement>(this);
 
 	GetActorsFromFolder("/Game/Objects");
 	GM = Cast<ALevelEditorGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
@@ -139,12 +141,12 @@ void AHughLevelEditor::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 			Input->BindAction(IA_Place, ETriggerEvent::Completed, this, &AHughLevelEditor::PlaceObject);
 		}
 		if (IA_Look) {
-			Input->BindAction(IA_Look, ETriggerEvent::Triggered, this, &AHughLevelEditor::RotateCamera);
+			//Input->BindAction(IA_Look, ETriggerEvent::Triggered, this, &AHughLevelEditor::RotateCamera);
 		}
 
-		if (IA_Zoom) Input->BindAction(IA_Zoom, ETriggerEvent::Triggered, this, &AHughLevelEditor::Zoom);
+		if (IA_Zoom) Input->BindAction(IA_Zoom, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::Zoom);
 
-		if (IA_RotateObject) Input->BindAction(IA_RotateObject, ETriggerEvent::Started, this, &AHughLevelEditor::RotateObject);
+		//if (IA_RotateObject) Input->BindAction(IA_RotateObject, ETriggerEvent::Started, this, &AHughLevelEditor::RotateObject);
 
 
 		if (IA_LookButton) {
@@ -232,45 +234,7 @@ void AHughLevelEditor::Pan(const FInputActionValue& Value) {
 	PanButtonPressed = Value.Get<bool>();
 }
 
-//Orbits the camera
-void AHughLevelEditor::RotateCamera(const FInputActionValue& Value) {
-	if (PanButtonPressed) {
-		FVector2D PanVector = Value.Get<FVector2D>();// * ;
 
-		FVector ForwardVector = CameraArm->GetForwardVector();
-		// Remove the pitch component to keep movement in the horizontal plane
-		ForwardVector.Z = 0;
-		ForwardVector.Normalize();
-		FVector RightVector = FVector::CrossProduct(ForwardVector, FVector::UpVector);
-		FVector PanDirection = (-ForwardVector * PanVector.Y + RightVector * PanVector.X);
-		
-		CameraArm->AddWorldOffset(PanDirection * PanStrenght * PanDir * (PanDir == -1? 5 : 1));
-	}
-	else if (b_CanLook) {
-		FVector2D LookAxisVector = Value.Get<FVector2D>() * LookSensitiviy;
-		//CameraArm->SetWorldRotation(CameraArm->GetComponentRotation() + FRotator(LookAxisVector.Y,LookAxisVector.X,0));
-
-		// Get current rotation
-		FRotator CurrentRotation = CameraArm->GetComponentRotation();
-
-		// Calculate new rotation
-		FRotator DeltaRotation = FRotator(LookAxisVector.Y, LookAxisVector.X, 0);
-		FRotator NewRotation = CurrentRotation + DeltaRotation;
-
-		// Clamp pitch between 0 and 85 degrees
-		NewRotation.Pitch = FMath::ClampAngle(NewRotation.Pitch, -85.0f, -5.0f);
-
-		// Apply the new rotation
-		CameraArm->SetWorldRotation(NewRotation);
-	} 
-}
-
-void AHughLevelEditor::Zoom(const FInputActionValue& Value) {
-	float ZoomAmount = Value.Get<float>() * ZoomSensitivity;
-	GEngine->AddOnScreenDebugMessage(10, 10, FColor::Red, "Zoom" + FString::SanitizeFloat(ZoomAmount));
-
-	CameraArm->TargetArmLength -= ZoomAmount;
-}
 
 //Hide actors in front of the camera
 void AHughLevelEditor::CamCollision() {
@@ -402,6 +366,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 			{
 				//UObjectProperties* SourceOP = AllObjects[ObjectIndex]->FindComponentByClass<UObjectProperties>();
 				UObjectProperties* TargetOP = SpawnedActor->FindComponentByClass<UObjectProperties>();
+
  
 				if (ObjectProperties && TargetOP)
 				//{

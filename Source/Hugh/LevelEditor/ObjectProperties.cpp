@@ -12,6 +12,7 @@ UObjectProperties::UObjectProperties()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = false;
 
 	// ...
 }
@@ -19,7 +20,9 @@ void UObjectProperties::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetComponentTickEnabled(Pushable);
+	Target = GetOwner()->GetActorLocation();
+	
+	//SetComponentTickEnabled(Pushable);
 	if (Pushable){
 		// Get the owner actor and bind to its hit event
 		if (AActor* Owner = GetOwner())
@@ -31,11 +34,13 @@ void UObjectProperties::BeginPlay()
 	
 }
 
+//Move object if pushing
 void UObjectProperties::Push_Move(FVector TargetLocation) {
-	FVector NewLocation = FMath::VInterpTo(GetOwner()->GetActorLocation(), TargetLocation, GetWorld()->DeltaTimeSeconds, 5);
+	FVector NewLocation = FMath::VInterpTo(GetOwner()->GetActorLocation(), TargetLocation, GetWorld()->DeltaTimeSeconds, 10);
 	GetOwner()->SetActorLocation(NewLocation);
 }
 
+//Called when touching the object
 void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit) {
 	//Checks if touching player
 	if(OtherActor->IsA(ACharacter::StaticClass())) {
@@ -44,23 +49,24 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
 		FVector Start = GetOwner()->GetActorLocation() + FVector(0, 0, 40);
 		FVector End;
 		End = GetOwner()->GetActorLocation() - OtherActor->GetActorLocation();
-		End.Z = 0;
-		End = FRotator(0,FMath::RoundToInt(FRotationMatrix::MakeFromX(End).Rotator().Yaw / 90) * 90,0).Vector() * 20;
+		End.Z = GetOwner()->GetActorLocation().Z;
+		End = FRotator(0,FMath::RoundToInt(FRotationMatrix::MakeFromX(End).Rotator().Yaw / 90) * 90,0).Vector();
 		FVector TargetLoc = (End) + GetOwner()->GetActorLocation();
-		//End *= 20;
+		End *= 40;
 		End += Start;
-		FVector HalfSize(30.0f, 30.0f, 30.0f); 
+		FVector HalfSize(35.0f, 35.0f, 35.0f); 
 		FRotator Orientation = FRotator(0, 0, 0);
-		GEngine->AddOnScreenDebugMessage(21, 5, FColor::Green, End.ToString());
+		TArray<AActor*> ActorsToIgnore;
+		ActorsToIgnore.Add(GetOwner()); 
 
-		GEngine->AddOnScreenDebugMessage(20, 5, FColor::Red, End.ToString());
+		//Do box check
+		if (!UKismetSystemLibrary::UKismetSystemLibrary::BoxTraceSingle(GetWorld(), Start, End, HalfSize, Orientation,UEngineTypes::ConvertToTraceType(ECC_Visibility),false, ActorsToIgnore, EDrawDebugTrace::None,HitResult,true,FLinearColor::Red,FLinearColor::Green,.1f)) {
+			End.Z = GetOwner()->GetActorLocation().Z;
+			Target = End;
+			Push_Move(End);
 
-		if (UKismetSystemLibrary::UKismetSystemLibrary::BoxTraceSingle(GetWorld(), Start, End, HalfSize, Orientation,UEngineTypes::ConvertToTraceType(ECollisionChannel::ECC_EngineTraceChannel2),false, TArray<AActor*>(), EDrawDebugTrace::ForDuration,HitResult,true,FLinearColor::Red,FLinearColor::Green,5.0f)) {
-			Push_Move(TargetLoc);
 		}
-		else{
-			Push_Move(TargetLoc);
-		}
+
 	}
 }
 
@@ -71,5 +77,5 @@ void UObjectProperties::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	GEngine->AddOnScreenDebugMessage(20, 5, FColor::Red, "I am ticking");
-	//GetOwner()->AddActorLocalOffset(FVector(0, 0, .1));
+	//Push_Move(Target);
 }

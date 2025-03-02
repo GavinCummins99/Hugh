@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
+#include "HLE_Movement.h"
 #include "InputActionValue.h"
 #include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
@@ -88,6 +89,7 @@ public:
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 	UPROPERTY(BlueprintReadWrite) UHLE_SaveLoad* SaveLoad; 
+	UPROPERTY(BlueprintReadWrite) UHLE_Movement* HLE_CameraComponent; 
 
 	UFUNCTION(BlueprintCallable) void SetInputMap();
 
