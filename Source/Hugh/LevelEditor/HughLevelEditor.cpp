@@ -40,16 +40,20 @@ AHughLevelEditor::AHughLevelEditor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//Crate display mesh
 	DisplayMesh = CreateDefaultSubobject<UStaticMeshComponent>("Display mesh");
 	DisplayMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	//CameraArm = CreateDefaultSubobject<USpringArmComponent>("Camera arm");
-	//SetRootComponent(CameraArm);
+	//Create camera boom arm
+	CameraArm = CreateDefaultSubobject<USpringArmComponent>("Camera arm");
+	CameraArm->SetRelativeRotation(FRotator(-45,0,0));
+	SetRootComponent(CameraArm);
 
-	//EditorCamera = CreateDefaultSubobject<UCameraComponent>("Camera");
-	//EditorCamera->SetupAttachment(CameraArm);
-	//EditorCamera->SetRelativeRotation(FRotator(-45,0,0));
-
+	//Create camera and attach to boom arm
+	EditorCamera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	EditorCamera->SetupAttachment(CameraArm);
+	
+	//This can probably be replaced by an "NewObject" 
 	ObjectProperties = CreateDefaultSubobject<UObjectProperties>("Object Properties");
 }
 
@@ -58,8 +62,46 @@ void AHughLevelEditor::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Create components
 	SaveLoad = NewObject<UHLE_SaveLoad>(this);
 	HLE_CameraComponent = NewObject<UHLE_Movement>(this);
+    
+	// Register the movement component and add it to actor
+	HLE_CameraComponent->RegisterComponent();
+	this->AddInstanceComponent(HLE_CameraComponent);
+    
+	// Set up any references the component needs
+	if (CameraArm) {
+		HLE_CameraComponent->CameraArm = CameraArm;
+	}
+    
+	// Bind input for the component now that it exists
+	if (InputComponent)
+	{
+		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
+		//Setup inputs for movement component
+		if(HLE_CameraComponent) {
+			if (IA_Zoom)
+			{
+				EnhancedInputComponent->BindAction(IA_Zoom, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::Zoom);
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Zoom bound in BeginPlay"));
+			}
+
+			if (IA_Look) {
+				EnhancedInputComponent->BindAction(IA_Look, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::OribitCamera);
+			}
+
+			if (IA_LookButton) {
+				EnhancedInputComponent->BindAction(IA_LookButton, ETriggerEvent::Started, HLE_CameraComponent, &UHLE_Movement::CanLook);
+				EnhancedInputComponent->BindAction(IA_LookButton, ETriggerEvent::Completed, HLE_CameraComponent, &UHLE_Movement::CanLook);
+			}
+
+			if (IA_PanButton) {
+				EnhancedInputComponent->BindAction(IA_PanButton, ETriggerEvent::Started, HLE_CameraComponent, &UHLE_Movement::Pan);
+				EnhancedInputComponent->BindAction(IA_PanButton, ETriggerEvent::Completed, HLE_CameraComponent, &UHLE_Movement::Pan);
+			}
+		}
+	}
 
 	GetActorsFromFolder("/Game/Objects");
 	GM = Cast<ALevelEditorGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
@@ -140,27 +182,11 @@ void AHughLevelEditor::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 			Input->BindAction(IA_Place, ETriggerEvent::Triggered, this, &AHughLevelEditor::PlaceObject);
 			Input->BindAction(IA_Place, ETriggerEvent::Completed, this, &AHughLevelEditor::PlaceObject);
 		}
-		if (IA_Look) {
-			//Input->BindAction(IA_Look, ETriggerEvent::Triggered, this, &AHughLevelEditor::RotateCamera);
-		}
-
-		if (IA_Zoom) Input->BindAction(IA_Zoom, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::Zoom);
-
-		//if (IA_RotateObject) Input->BindAction(IA_RotateObject, ETriggerEvent::Started, this, &AHughLevelEditor::RotateObject);
-
-
-		if (IA_LookButton) {
-			Input->BindAction(IA_LookButton, ETriggerEvent::Started, this, &AHughLevelEditor::CanLook);
-			Input->BindAction(IA_LookButton, ETriggerEvent::Completed, this, &AHughLevelEditor::CanLook);
-		}
-
-		if (IA_PanButton) {
-			Input->BindAction(IA_PanButton, ETriggerEvent::Started, this, &AHughLevelEditor::Pan);
-			Input->BindAction(IA_PanButton, ETriggerEvent::Completed, this, &AHughLevelEditor::Pan);
-		}
+		if (IA_RotateObject) Input->BindAction(IA_RotateObject, ETriggerEvent::Started, this, &AHughLevelEditor::RotateObject);
 	}
 
 }
+
 
 //Helper function for snapping vector to grid
 FVector AHughLevelEditor::Snap(FVector InVector) {
@@ -356,7 +382,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 		for (int j = 0; j < FMath::Abs(YLen) + 1; j++) {
 			
 			FVector Location = FVector(StartPoint.X + (i * 100 * (XLen>0?1:-1)),StartPoint.Y + (j * 100 * (YLen>0?1:-1)), StartPoint.Z);
-			FRotator Rotation = DisplayMesh->GetComponentRotation();
+			FRotator Rotation = ObjectProperties->AllowRotation ? DisplayMesh->GetComponentRotation() : FRotator(0,0,0);
 			FActorSpawnParameters SpawnInfo;
 			SpawnInfo.Template = AllObjects[ObjectIndex];
 			AActor* SpawnedActor = GetWorld()->SpawnActor(AllObjects[ObjectIndex]->GetClass(), &Location, &Rotation, SpawnInfo);

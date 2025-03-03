@@ -34,10 +34,12 @@ public:
 
 
 	//Objects settings
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) FString ObjectName;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) UTexture2D* ObjectImage;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Display settings") FString ObjectName;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Display settings") UTexture2D* ObjectImage;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) FColor ObjectColor;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool Pushable = false;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") bool AllowRotation = true;
 	
 	//Public properties
 	UPROPERTY(BlueprintReadWrite) bool EmittingLight = false;
