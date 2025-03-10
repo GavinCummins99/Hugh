@@ -20,9 +20,31 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	//Cursor locations 
+	FVector CursorLoc;
+	FVector CursorStartLoc;
+	FVector CursorEndLoc;
+	
+	int XLen;
+	int YLen;
+	int CachedXLen;
+	int CachedYLen;
+	TMap<FIntPoint, AActor*> SpawnedObjects;
+
+	bool IsPlacing;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) AActor* CurrentObject;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) AActor* PlaceTemp;
+	
+	void Trace();
+	void StartPlacement();
+	void EndPlacement();
+	void Test();
+	void CreateObjects();
+	FVector Snap(FVector InVector);
 };
+

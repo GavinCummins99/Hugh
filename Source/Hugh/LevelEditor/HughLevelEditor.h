@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "HLE_Movement.h"
+#include "HLE_Placement.h"
 #include "InputActionValue.h"
 #include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
@@ -51,7 +52,6 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TSubclassOf<AActor> CurrentObject;
 
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -90,6 +90,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite) UHLE_SaveLoad* SaveLoad; 
 	UPROPERTY(BlueprintReadWrite) UHLE_Movement* HLE_CameraComponent; 
+	UPROPERTY(BlueprintReadWrite) UHLE_Placement* HLE_Placement; 
 
 	UFUNCTION(BlueprintCallable) void SetInputMap();
 
