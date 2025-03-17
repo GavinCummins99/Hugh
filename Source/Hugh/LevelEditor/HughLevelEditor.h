@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "HLE_Movement.h"
+#include "HLE_Placement.h"
 #include "InputActionValue.h"
 #include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
@@ -50,7 +51,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) float GridSize = 100;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TSubclassOf<AActor> CurrentObject;
-
+	UFUNCTION(BlueprintCallable) void SetObjectIndex(int NewIndex);
 
 protected:
 	// Called when the game starts or when spawned
@@ -90,6 +91,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite) UHLE_SaveLoad* SaveLoad; 
 	UPROPERTY(BlueprintReadWrite) UHLE_Movement* HLE_CameraComponent; 
+	UPROPERTY(BlueprintReadWrite) UHLE_Placement* HLE_Placement; 
 
 	UFUNCTION(BlueprintCallable) void SetInputMap();
 

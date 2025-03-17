@@ -62,14 +62,21 @@ void AHughLevelEditor::BeginPlay()
 {
 	Super::BeginPlay();
 
+
+	
 	// Create components
 	SaveLoad = NewObject<UHLE_SaveLoad>(this);
 	HLE_CameraComponent = NewObject<UHLE_Movement>(this);
-    
+	HLE_Placement = NewObject<UHLE_Placement>(this);
+
 	// Register the movement component and add it to actor
 	HLE_CameraComponent->RegisterComponent();
 	this->AddInstanceComponent(HLE_CameraComponent);
-    
+
+	HLE_Placement->RegisterComponent();
+
+;
+
 	// Set up any references the component needs
 	if (CameraArm) {
 		HLE_CameraComponent->CameraArm = CameraArm;
@@ -101,11 +108,20 @@ void AHughLevelEditor::BeginPlay()
 				EnhancedInputComponent->BindAction(IA_PanButton, ETriggerEvent::Completed, HLE_CameraComponent, &UHLE_Movement::Pan);
 			}
 		}
+		if (HLE_Placement){
+			if (IA_Place) {
+				EnhancedInputComponent->BindAction(IA_Place, ETriggerEvent::Started, HLE_Placement, &UHLE_Placement::StartPlacement);
+			}
+			if (IA_Place) {
+				EnhancedInputComponent->BindAction(IA_Place, ETriggerEvent::Completed, HLE_Placement, &UHLE_Placement::EndPlacement);
+			}
+		}
 	}
 
-	GetActorsFromFolder("/Game/Objects");
 	GM = Cast<ALevelEditorGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-
+	//Finds all actors in the folder
+	GetActorsFromFolder("/Game/Objects");
+	
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 	if (!PlayerController)
 		return;
@@ -122,6 +138,15 @@ void AHughLevelEditor::BeginPlay()
 	InputMode.SetHideCursorDuringCapture(false);
 	PlayerController->SetInputMode(InputMode);
 
+
+	FActorSpawnParameters SpawnInfo;
+	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[16]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
+
+}
+
+void AHughLevelEditor::SetObjectIndex(int NewIndex){
+	FActorSpawnParameters SpawnInfo;
+	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[NewIndex]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
 }
 
 void AHughLevelEditor::SetInputMap() {
@@ -163,8 +188,8 @@ void AHughLevelEditor::Tick(float DeltaTime)
 
 
 	if (EditorMode == Modes::Building) {
-		if (!Placing)StartPlacing(false);
-		PlaceObject(true);
+		//if (!Placing)StartPlacing(false);
+		//PlaceObject(true);
 	}
 
 	//if(GM->HideWalls) CamCollision();
@@ -173,6 +198,7 @@ void AHughLevelEditor::Tick(float DeltaTime)
 // Called to bind functionality to input
 void AHughLevelEditor::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	/*
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	if (Input)
@@ -184,7 +210,7 @@ void AHughLevelEditor::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		}
 		if (IA_RotateObject) Input->BindAction(IA_RotateObject, ETriggerEvent::Started, this, &AHughLevelEditor::RotateObject);
 	}
-
+*/
 }
 
 
