@@ -51,6 +51,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) float GridSize = 100;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TSubclassOf<AActor> CurrentObject;
+	UFUNCTION(BlueprintCallable) void SetObjectIndex(int NewIndex);
 
 protected:
 	// Called when the game starts or when spawned

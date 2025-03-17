@@ -40,6 +40,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool Pushable = false;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") bool AllowRotation = true;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") bool AlignNormalToface = false;
 	
 	//Public properties
 	UPROPERTY(BlueprintReadWrite) bool EmittingLight = false;

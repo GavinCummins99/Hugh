@@ -144,6 +144,11 @@ void AHughLevelEditor::BeginPlay()
 
 }
 
+void AHughLevelEditor::SetObjectIndex(int NewIndex){
+	FActorSpawnParameters SpawnInfo;
+	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[NewIndex]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
+}
+
 void AHughLevelEditor::SetInputMap() {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("TEST FUNCTION CALLED"));
 

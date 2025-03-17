@@ -101,9 +101,12 @@ void UHLE_Placement::Trace() {
 		}
 
 		//Sets the new Rotation of the object
-		FRotator NewRotation = Hit.Normal.Rotation(); 
-		NewRotation.Pitch -= 90.0f; 
-		CurrentObject->SetActorRotation(NewRotation);
+		if (CurrentObject->GetComponentByClass<UObjectProperties>()->AlignNormalToface){
+			FRotator NewRotation = Hit.Normal.Rotation(); 
+			NewRotation.Pitch -= 90.0f; 
+			CurrentObject->SetActorRotation(NewRotation);
+		}
+
 
 
 
@@ -193,7 +196,7 @@ void UHLE_Placement::Test()
         
         // Fill grid based on dimensions
         for (int32 X = (XLen < 0 ? XLen : 0); X <= (XLen > 0 ? XLen : 0); X++)
-        {
+        {                                      
             for (int32 Y = (YLen < 0 ? YLen : 0); Y <= (YLen > 0 ? YLen : 0); Y++)
             {
                 DesiredCoords.Add(FIntPoint(X, Y));
