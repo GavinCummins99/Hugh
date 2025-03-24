@@ -32,7 +32,7 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	Trace();
-	if (CurrentObject){
+	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
 		if (IsPlacing){
 			//CurrentObject->SetActorLocation(Snap(CursorStartLoc));
 			CurrentObject->SetActorLocation(Snap(CursorLoc));
@@ -78,8 +78,13 @@ void UHLE_Placement::Trace() {
 	float T;
 
 	//For for immediate line trace hit
-	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, QueryParams) && !IsPlacing) {
-		CursorLoc = Hit.ImpactPoint + (Hit.ImpactNormal * 25);
+	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, QueryParams)) {
+		PlaneOrigin = Hit.Location;
+		
+		if (!IsPlacing)CursorLoc = Hit.ImpactPoint + (Hit.ImpactNormal * 25);
+		else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
+			CursorLoc = IntersectionPoint;
+		}
 
 		
 		/*DisplayMesh->SetWorldLocation(Snap(Hit.ImpactPoint + (Hit.ImpactNormal * 25)));
@@ -106,9 +111,15 @@ void UHLE_Placement::Trace() {
 			NewRotation.Pitch -= 90.0f; 
 			CurrentObject->SetActorRotation(NewRotation);
 		}
+		else {
+			CurrentObject->SetActorRotation(FRotator(0,TargetYawRotation,0));
+		}
 
 
-
+		if (IsPlacing && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Editing){
+			SetMaterial(Hit.GetActor(), Cast<AHughLevelEditor>(GetOwner())->EditingMaterial);
+			Cast<AHughLevelEditor>(GetOwner())->SelectedObjects.Add(Hit.GetActor());
+		}
 
 		
 
@@ -140,7 +151,7 @@ void UHLE_Placement::Trace() {
 	CachedYLen = YLen;
 	}
 	*/
-	Test();
+	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building) Test();
 	GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Green, "LEnghtssssssss : " + FString::FromInt(XLen) + " / " + FString::FromInt(YLen));
 
 
@@ -217,7 +228,8 @@ void UHLE_Placement::Test()
                 
                 // Spawn the object
                 FActorSpawnParameters SpawnInfo;
-                AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, &FRotator::ZeroRotator, SpawnInfo);
+            	FRotator Rotator = FRotator(0,TargetYawRotation,0);
+                AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->AllowRotation? &Rotator : &FRotator::ZeroRotator, SpawnInfo);
                 
                 // Store in our map
                 SpawnedObjects.Add(Coord, SpawnedObject);
@@ -267,9 +279,48 @@ void UHLE_Placement::CreateObjects(){
 //Helper function for snapping vector to grid
 FVector UHLE_Placement::Snap(FVector InVector) {
 	float GridSize = 100;
+	float extra = 100;
 	return FVector(
 	FMath::RoundToFloat(InVector.X / GridSize) * GridSize,
 	FMath::RoundToFloat(InVector.Y / GridSize) * GridSize,
 	FMath::RoundToFloat(InVector.Z / GridSize) * GridSize
-	);
+	) + (Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->GridSnap) * 100;
+}
+
+
+void UHLE_Placement::SetMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial)
+{
+	if (!Actor)
+		return;
+    
+	// Find all Static Mesh Components
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	Actor->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+    
+	// Apply overlay material to all Static Mesh Components
+	for (UStaticMeshComponent* MeshComp : StaticMeshComponents)
+	{
+		if (MeshComp)
+		{
+			MeshComp->SetOverlayMaterial(OverlayMaterial);
+		}
+	}
+    
+	// Find all Skeletal Mesh Components
+	TArray<USkeletalMeshComponent*> SkeletalMeshComponents;
+	Actor->GetComponents<USkeletalMeshComponent>(SkeletalMeshComponents);
+    
+	// Apply overlay material to all Skeletal Mesh Components
+	for (USkeletalMeshComponent* SkeletalComp : SkeletalMeshComponents)
+	{
+		if (SkeletalComp)
+		{
+			SkeletalComp->SetOverlayMaterial(OverlayMaterial);
+		}
+	}
+}
+
+//Rotates object
+void UHLE_Placement::RotateObject() {
+	TargetYawRotation += 45;
 }

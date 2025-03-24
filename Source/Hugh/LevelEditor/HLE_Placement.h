@@ -32,6 +32,7 @@ protected:
 	TMap<FIntPoint, AActor*> SpawnedObjects;
 
 	bool IsPlacing;
+	float TargetYawRotation;
 
 public:	
 	// Called every frame
@@ -46,5 +47,7 @@ public:
 	void Test();
 	void CreateObjects();
 	FVector Snap(FVector InVector);
+	void SetMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial);
+	void RotateObject();
 };
 
