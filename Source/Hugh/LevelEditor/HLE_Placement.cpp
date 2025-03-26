@@ -31,6 +31,8 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	GEngine->AddOnScreenDebugMessage(100, 5, FColor::Emerald, Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->GridSnap.ToString());
+
 	Trace();
 	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
 		if (IsPlacing){
@@ -279,12 +281,14 @@ void UHLE_Placement::CreateObjects(){
 //Helper function for snapping vector to grid
 FVector UHLE_Placement::Snap(FVector InVector) {
 	float GridSize = 100;
-	float extra = 100;
+	float extra = 0;
 	return FVector(
 	FMath::RoundToFloat(InVector.X / GridSize) * GridSize,
 	FMath::RoundToFloat(InVector.Y / GridSize) * GridSize,
 	FMath::RoundToFloat(InVector.Z / GridSize) * GridSize
-	) + (Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->GridSnap) * 100;
+	);
+
+	// + (Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->GridSnap) - FVector::OneVector * 100
 }
 
 
