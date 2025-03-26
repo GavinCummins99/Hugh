@@ -115,6 +115,9 @@ void AHughLevelEditor::BeginPlay()
 			if (IA_Place) {
 				EnhancedInputComponent->BindAction(IA_Place, ETriggerEvent::Completed, HLE_Placement, &UHLE_Placement::EndPlacement);
 			}
+			if (IA_RotateObject) {
+				EnhancedInputComponent->BindAction(IA_RotateObject, ETriggerEvent::Started, HLE_Placement, &UHLE_Placement::RotateObject);
+			}
 		}
 	}
 
