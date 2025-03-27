@@ -10,6 +10,8 @@
 #include "Misc/FileHelper.h"
 #include "EngineUtils.h"
 #include "AsyncTreeDifferences.h"
+#include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 #include "EditorActorFolders.h"
 #include "EngineUtils.h"
 #include "JsonObjectConverter.h"
@@ -149,8 +151,48 @@ void AHughLevelEditor::BeginPlay()
 
 void AHughLevelEditor::SetObjectIndex(int NewIndex){
 	FActorSpawnParameters SpawnInfo;
+	if (HLE_Placement->CurrentObject) HLE_Placement->CurrentObject->Destroy();
 	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[NewIndex]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
-}
+
+
+	if (HLE_Placement->CurrentObject)
+	{
+		//UObjectProperties* SourceOP = AllObjects[ObjectIndex]->FindComponentByClass<UObjectProperties>();
+		UObjectProperties* TargetOP = HLE_Placement->CurrentObject->FindComponentByClass<UObjectProperties>();
+
+
+			
+		if (ObjectProperties && TargetOP)
+			//{
+			// Copy all properties from source to target
+			UEngine::CopyPropertiesForUnrelatedObjects(ObjectProperties, TargetOP);
+		//}
+	}
+	
+	//Disable collision
+	if (HLE_Placement->CurrentObject)
+	{
+		// Get all components
+		TArray<UPrimitiveComponent*> Components;
+		HLE_Placement->CurrentObject->GetComponents(Components);
+
+
+		
+
+    
+		// Loop through all primitive components and disable collision
+		for (UPrimitiveComponent* Component : Components)
+		{
+			if (Component)
+			{
+				// Set collision to none
+				Component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            
+				// Also set collision response to ignore for all channels (for safety)
+				Component->SetCollisionResponseToAllChannels(ECR_Ignore);
+			}
+		}
+	}}
 
 void AHughLevelEditor::SetInputMap() {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("TEST FUNCTION CALLED"));

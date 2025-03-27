@@ -146,4 +146,6 @@ public:
 	UPROPERTY(BlueprintReadOnly) TArray<AActor*> SelectedObjects;
 
 	UPROPERTY(BlueprintReadWrite,EditAnywhere) UObjectProperties* ObjectProperties;
+
+
 };

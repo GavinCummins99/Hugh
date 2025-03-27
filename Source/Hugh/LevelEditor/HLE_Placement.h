@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ObjectProperties.h"
 #include "Components/ActorComponent.h"
 #include "HLE_Placement.generated.h"
 
@@ -34,6 +35,8 @@ protected:
 	bool IsPlacing;
 	float TargetYawRotation;
 
+	AActor* HoveredObject;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -44,10 +47,11 @@ public:
 	void Trace();
 	void StartPlacement();
 	void EndPlacement();
-	void Test();
+	void PlaceObjects();
 	void CreateObjects();
 	FVector Snap(FVector InVector);
 	void SetMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial);
 	void RotateObject();
+	void RemoveHovered();
 };
 

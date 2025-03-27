@@ -31,16 +31,18 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	GEngine->AddOnScreenDebugMessage(100, 5, FColor::Emerald, Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->GridSnap.ToString());
+	GEngine->AddOnScreenDebugMessage(100, 5, FColor::Emerald, "Allow rotation : " + FString::FromInt(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation));
 
 	Trace();
 	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
 		if (IsPlacing){
 			//CurrentObject->SetActorLocation(Snap(CursorStartLoc));
 			CurrentObject->SetActorLocation(Snap(CursorLoc));
+			CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
 
 		} else{
 			CurrentObject->SetActorLocation(Snap(CursorLoc));
+			CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
 		}
 	}
 }
@@ -71,6 +73,15 @@ void UHLE_Placement::Trace() {
 	FCollisionQueryParams QueryParams; QueryParams.AddIgnoredActor(GetOwner());
 	QueryParams.AddIgnoredActor(CurrentObject);
 
+	// Ignore all spawned objects during placement
+	if (IsPlacing) {
+		for (auto& Pair : SpawnedObjects) {
+			if (IsValid(Pair.Value)) {
+				QueryParams.AddIgnoredActor(Pair.Value);
+			}
+		}
+	}
+
 	//Setup plane
 	FVector PlaneOrigin = FVector(0,0,0);
 	FVector PlaneNormal = FVector(0,0,1);
@@ -82,6 +93,8 @@ void UHLE_Placement::Trace() {
 	//For for immediate line trace hit
 	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, QueryParams)) {
 		PlaneOrigin = Hit.Location;
+		HoveredObject = Hit.GetActor();
+
 		
 		if (!IsPlacing)CursorLoc = Hit.ImpactPoint + (Hit.ImpactNormal * 25);
 		else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
@@ -153,7 +166,7 @@ void UHLE_Placement::Trace() {
 	CachedYLen = YLen;
 	}
 	*/
-	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building) Test();
+	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building) PlaceObjects();
 	GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Green, "LEnghtssssssss : " + FString::FromInt(XLen) + " / " + FString::FromInt(YLen));
 
 
@@ -161,9 +174,14 @@ void UHLE_Placement::Trace() {
 }
 
 void UHLE_Placement::StartPlacement(){
-	CursorStartLoc = Snap(CursorLoc);
-	IsPlacing = true;
-	GEngine->AddOnScreenDebugMessage(101, 5.f, FColor::Blue, "Start : " + CursorStartLoc.ToString());
+	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building || Cast<AHughLevelEditor>(GetOwner())->EditorMode ==Modes::Editing) {
+		CursorStartLoc = Snap(CursorLoc);
+		IsPlacing = true;
+		GEngine->AddOnScreenDebugMessage(101, 5.f, FColor::Blue, "Start : " + CursorStartLoc.ToString());
+	}
+	else if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Removing) {
+		HoveredObject->Destroy();
+	}
 }
 
 void UHLE_Placement::EndPlacement(){
@@ -178,7 +196,7 @@ void UHLE_Placement::EndPlacement(){
 	SpawnedObjects.Empty();
 }
 
-void UHLE_Placement::Test()
+void UHLE_Placement::PlaceObjects()
 {
     if (IsPlacing)
     {
@@ -231,10 +249,24 @@ void UHLE_Placement::Test()
                 // Spawn the object
                 FActorSpawnParameters SpawnInfo;
             	FRotator Rotator = FRotator(0,TargetYawRotation,0);
-                AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->AllowRotation? &Rotator : &FRotator::ZeroRotator, SpawnInfo);
+                AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? &Rotator : &FRotator::ZeroRotator, SpawnInfo);
                 
                 // Store in our map
                 SpawnedObjects.Add(Coord, SpawnedObject);
+            	
+            	///
+            	if (SpawnedObject)
+            	{
+            		//UObjectProperties* SourceOP = AllObjects[ObjectIndex]->FindComponentByClass<UObjectProperties>();
+            		UObjectProperties* TargetOP = SpawnedObject->FindComponentByClass<UObjectProperties>();
+
+ 
+            		if (Cast<AHughLevelEditor>(GetOwner())->ObjectProperties && TargetOP)
+            			//{
+            			// Copy all properties from source to target
+            			UEngine::CopyPropertiesForUnrelatedObjects(Cast<AHughLevelEditor>(GetOwner())->ObjectProperties, TargetOP);
+            		//}
+            	}
             }
         }
         
@@ -261,6 +293,9 @@ void UHLE_Placement::Test()
         // Update cached dimensions
         CachedXLen = XLen;
         CachedYLen = YLen;
+
+
+
     }
 }
 
