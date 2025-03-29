@@ -37,14 +37,19 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
 		if (IsPlacing){
 			//CurrentObject->SetActorLocation(Snap(CursorStartLoc));
-			CurrentObject->SetActorLocation(Snap(CursorLoc));
-			CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
+			//CurrentObject->SetActorLocation(Snap(CursorLoc));
+			//CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
 
 		} else{
 			CurrentObject->SetActorLocation(Snap(CursorLoc));
-			CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
+			//FRotator TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+			//CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, GetWorld()->GetTimeSeconds(), 5));
+			//CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
 		}
 	}
+	TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+	//FRotator TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+	CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
 }
 
 //Handel's main line trace from the camera to world space
@@ -123,11 +128,13 @@ void UHLE_Placement::Trace() {
 		//Sets the new Rotation of the object
 		if (CurrentObject->GetComponentByClass<UObjectProperties>()->AlignNormalToface){
 			FRotator NewRotation = Hit.Normal.Rotation(); 
-			NewRotation.Pitch -= 90.0f; 
-			CurrentObject->SetActorRotation(NewRotation);
+			NewRotation.Pitch -= 90.0f;
+			TargetRotation = NewRotation;
+			//CurrentObject->SetActorRotation(NewRotation);
 		}
 		else {
-			CurrentObject->SetActorRotation(FRotator(0,TargetYawRotation,0));
+			TargetRotation = FRotator(0,TargetYawRotation,0);
+			//CurrentObject->SetActorRotation(FRotator(0,TargetYawRotation,0));
 		}
 
 

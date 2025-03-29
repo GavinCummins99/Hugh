@@ -36,6 +36,7 @@ protected:
 	float TargetYawRotation;
 
 	AActor* HoveredObject;
+	FRotator TargetRotation;
 
 public:	
 	// Called every frame
