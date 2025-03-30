@@ -8,6 +8,7 @@
 #include "HLE_Placement.generated.h"
 
 
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class HUGH_API UHLE_Placement : public UActorComponent
 {
@@ -54,5 +55,9 @@ public:
 	void SetMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial);
 	void RotateObject();
 	void RemoveHovered();
+
+
+
+
 };
 

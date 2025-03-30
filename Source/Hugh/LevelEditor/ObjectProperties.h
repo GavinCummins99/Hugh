@@ -7,6 +7,8 @@
 #include "ObjectProperties.generated.h"
 
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FObjectPlaced);
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class HUGH_API UObjectProperties : public UActorComponent
 {
@@ -29,7 +31,7 @@ protected:
 
 public:	
 	// Called every frame
-	UPROPERTY()FVector Target;
+	UPROPERTY()FVector Target = FVector(0,0,220);
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 
@@ -46,5 +48,8 @@ public:
 	//Public properties
 	UPROPERTY(BlueprintReadWrite) bool EmittingLight = false;
 
+
+	UPROPERTY(BlueprintAssignable) FObjectPlaced OnObjectPlaced;
+	UFUNCTION(BlueprintCallable) void OnPlaced();
 		
 };

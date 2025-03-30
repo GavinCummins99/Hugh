@@ -12,7 +12,7 @@ UObjectProperties::UObjectProperties()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-	PrimaryComponentTick.bStartWithTickEnabled = false;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
 
 	// ...
 }
@@ -20,9 +20,8 @@ void UObjectProperties::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Target = GetOwner()->GetActorLocation();
+	//Target = GetOwner()->GetActorLocation();
 	
-	//SetComponentTickEnabled(Pushable);
 	if (Pushable){
 		// Get the owner actor and bind to its hit event
 		if (AActor* Owner = GetOwner())
@@ -36,7 +35,7 @@ void UObjectProperties::BeginPlay()
 
 //Move object if pushing
 void UObjectProperties::Push_Move(FVector TargetLocation) {
-	FVector NewLocation = FMath::VInterpTo(GetOwner()->GetActorLocation(), TargetLocation, GetWorld()->DeltaTimeSeconds, 10);
+	FVector NewLocation = FMath::VInterpTo(GetOwner()->GetActorLocation(), TargetLocation, GetWorld()->DeltaTimeSeconds, 3);
 	GetOwner()->SetActorLocation(NewLocation);
 }
 
@@ -60,10 +59,10 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
 		ActorsToIgnore.Add(GetOwner()); 
 
 		//Do box check
-		if (!UKismetSystemLibrary::UKismetSystemLibrary::BoxTraceSingle(GetWorld(), Start, End, HalfSize, Orientation,UEngineTypes::ConvertToTraceType(ECC_Visibility),false, ActorsToIgnore, EDrawDebugTrace::None,HitResult,true,FLinearColor::Red,FLinearColor::Green,.1f)) {
+		if (!UKismetSystemLibrary::UKismetSystemLibrary::BoxTraceSingle(GetWorld(), Start, End, HalfSize, Orientation,UEngineTypes::ConvertToTraceType(ECC_Visibility),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,FLinearColor::Red,FLinearColor::Green,.1f)) {
 			End.Z = GetOwner()->GetActorLocation().Z;
 			Target = End;
-			Push_Move(End);
+			//Push_Move(End);
 
 		}
 
@@ -77,5 +76,11 @@ void UObjectProperties::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	GEngine->AddOnScreenDebugMessage(20, 5, FColor::Red, "I am ticking");
-	//Push_Move(Target);
+	Push_Move(Target);
+}
+
+void UObjectProperties::OnPlaced() {
+	OnObjectPlaced.Broadcast();
+	Target = GetOwner()->GetActorLocation();
+	SetComponentTickEnabled(Pushable);
 }

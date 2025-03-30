@@ -30,9 +30,7 @@ void UHLE_Placement::BeginPlay()
 void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	GEngine->AddOnScreenDebugMessage(100, 5, FColor::Emerald, "Allow rotation : " + FString::FromInt(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation));
-
+	
 	Trace();
 	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
 		if (IsPlacing){
@@ -196,6 +194,15 @@ void UHLE_Placement::EndPlacement(){
 	IsPlacing = false;
 	GEngine->AddOnScreenDebugMessage(100, 5.f, FColor::Blue, "End : " + CursorEndLoc.ToString());
 	GEngine->AddOnScreenDebugMessage(100, 5.f, FColor::Blue, "Distance : " + (CursorStartLoc - CursorEndLoc).ToString());
+
+	for (auto Element : SpawnedObjects) {
+		AActor* Actor = Element.Value;
+		UObjectProperties* Component = Actor->FindComponentByClass<UObjectProperties>();
+    
+		if (Component) {
+			Component->OnPlaced();
+		}
+	}
 
 	//CreateObjects();
 	CachedXLen = 0;
