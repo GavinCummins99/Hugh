@@ -8,6 +8,9 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FObjectPlaced);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStartedPushing);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStoppedPushing);
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class HUGH_API UObjectProperties : public UActorComponent
@@ -50,6 +53,11 @@ public:
 
 
 	UPROPERTY(BlueprintAssignable) FObjectPlaced OnObjectPlaced;
+	UPROPERTY(BlueprintReadOnly) bool IsPlaced;
+	UPROPERTY(BlueprintAssignable) FObjectPlaced OnStartedPushing;
+	UPROPERTY(BlueprintAssignable) FObjectPlaced OnOStoppedPushing;
+
 	UFUNCTION(BlueprintCallable) void OnPlaced();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 		
 };

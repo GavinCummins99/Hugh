@@ -4,6 +4,7 @@
 #include "HLE_Placement.h"
 #include "HughLevelEditor.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Runtime/Media/Public/IMediaControls.h"
 
 // Sets default values for this component's properties
 UHLE_Placement::UHLE_Placement()
@@ -33,6 +34,7 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	
 	Trace();
 	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
+		CurrentObject->SetHidden(false);
 		if (IsPlacing){
 			//CurrentObject->SetActorLocation(Snap(CursorStartLoc));
 			//CurrentObject->SetActorLocation(Snap(CursorLoc));
@@ -45,9 +47,13 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 			//CurrentObject->SetActorRotation(CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator);
 		}
 	}
-	TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+	else {
+		CurrentObject->SetHidden(true);
+	}
+	//TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 	//FRotator TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
-	CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
+	//CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
+	CurrentObject->SetActorRotation(TargetRotation);
 }
 
 //Handel's main line trace from the camera to world space
@@ -131,7 +137,9 @@ void UHLE_Placement::Trace() {
 			//CurrentObject->SetActorRotation(NewRotation);
 		}
 		else {
-			TargetRotation = FRotator(0,TargetYawRotation,0);
+			//TargetRotation = FRotator(0,TargetYawRotation,0);
+			TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+
 			//CurrentObject->SetActorRotation(FRotator(0,TargetYawRotation,0));
 		}
 
@@ -262,9 +270,11 @@ void UHLE_Placement::PlaceObjects()
                 
                 // Spawn the object
                 FActorSpawnParameters SpawnInfo;
-            	FRotator Rotator = FRotator(0,TargetYawRotation,0);
-                AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? &Rotator : &FRotator::ZeroRotator, SpawnInfo);
-                
+            	//FRotator Rotator = FRotator(0,TargetYawRotation,0);
+
+                //AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? &Rotator : &FRotator::ZeroRotator, SpawnInfo);
+            	AActor* SpawnedObject = GetWorld()->SpawnActor(CurrentObject->GetClass(), &Location, &TargetRotation, SpawnInfo);
+
                 // Store in our map
                 SpawnedObjects.Add(Coord, SpawnedObject);
             	

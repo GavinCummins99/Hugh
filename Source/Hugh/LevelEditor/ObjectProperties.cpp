@@ -12,7 +12,7 @@ UObjectProperties::UObjectProperties()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-	PrimaryComponentTick.bStartWithTickEnabled = true;
+	PrimaryComponentTick.bStartWithTickEnabled = false;
 
 	// ...
 }
@@ -51,7 +51,7 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
 		End.Z = GetOwner()->GetActorLocation().Z;
 		End = FRotator(0,FMath::RoundToInt(FRotationMatrix::MakeFromX(End).Rotator().Yaw / 90) * 90,0).Vector();
 		FVector TargetLoc = (End) + GetOwner()->GetActorLocation();
-		End *= 40;
+		End *= 50;
 		End += Start;
 		FVector HalfSize(35.0f, 35.0f, 35.0f); 
 		FRotator Orientation = FRotator(0, 0, 0);
@@ -64,6 +64,9 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
 			Target = End;
 			//Push_Move(End);
 
+		}
+		else {
+			//Target = FVector(Hit.Location.X,Hit.Location.Y,GetOwner()->GetActorLocation().Z);
 		}
 
 	}
@@ -80,6 +83,7 @@ void UObjectProperties::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 }
 
 void UObjectProperties::OnPlaced() {
+	IsPlaced = true;
 	OnObjectPlaced.Broadcast();
 	Target = GetOwner()->GetActorLocation();
 	SetComponentTickEnabled(Pushable);
