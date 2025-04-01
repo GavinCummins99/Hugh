@@ -49,7 +49,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") FVector GridSnap = FVector(1,1,1);
 
 	//Public properties
-	UPROPERTY(BlueprintReadWrite) bool EmittingLight = false;
+	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
 
 
 	UPROPERTY(BlueprintAssignable) FObjectPlaced OnObjectPlaced;

@@ -52,8 +52,8 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	}
 	//TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 	//FRotator TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
-	//CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
-	CurrentObject->SetActorRotation(TargetRotation);
+	CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
+	//CurrentObject->SetActorRotation(TargetRotation);
 }
 
 //Handel's main line trace from the camera to world space
@@ -104,8 +104,8 @@ void UHLE_Placement::Trace() {
 		PlaneOrigin = Hit.Location;
 		HoveredObject = Hit.GetActor();
 
-		
-		if (!IsPlacing)CursorLoc = Hit.ImpactPoint + (Hit.ImpactNormal * 25);
+		///+ (Hit.ImpactNormal * 25)
+		if (!IsPlacing)CursorLoc = Hit.ImpactPoint;
 		else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
 			CursorLoc = IntersectionPoint;
 		}
@@ -344,9 +344,10 @@ FVector UHLE_Placement::Snap(FVector InVector) {
 	return FVector(
 	FMath::RoundToFloat(InVector.X / GridSize) * GridSize,
 	FMath::RoundToFloat(InVector.Y / GridSize) * GridSize,
-	FMath::RoundToFloat(InVector.Z / GridSize) * GridSize
+	InVector.Z
 	);
 
+	//FMath::RoundToFloat(InVector.Z / GridSize) * GridSize
 	// + (Cast<AHughLevelEditor>(GetOwner())->ObjectProperties->GridSnap) - FVector::OneVector * 100
 }
 
