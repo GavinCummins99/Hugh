@@ -2,55 +2,39 @@
 	"Actors": [
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 800, "Y": -800, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": -800, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": -700, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": -600, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": -800, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": -700, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": -600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -66,7 +50,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": -600, "Z": 0},
+			"Location": {"X": 900, "Y": -800, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -74,7 +58,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": -800, "Z": 0},
+			"Location": {"X": 900, "Y": -700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -82,7 +66,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": -700, "Z": 0},
+			"Location": {"X": 1000, "Y": -700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -90,7 +74,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": -600, "Z": 0},
+			"Location": {"X": 1100, "Y": -700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -98,7 +82,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": -500, "Z": 0},
+			"Location": {"X": 1200, "Y": -700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -106,15 +90,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": -400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": -300, "Z": 0},
+			"Location": {"X": 1300, "Y": -700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -154,7 +130,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 500, "Y": -400, "Z": 0},
+			"Location": {"X": 600, "Y": -800, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -162,7 +138,15 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 500, "Y": -300, "Z": 0},
+			"Location": {"X": 600, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": -600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -178,7 +162,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": -400, "Z": 0},
+			"Location": {"X": 700, "Y": -800, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -186,7 +170,15 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": -300, "Z": 0},
+			"Location": {"X": 700, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": -600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -202,15 +194,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": -400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": -300, "Z": 0},
+			"Location": {"X": 800, "Y": -600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -226,7 +210,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": -400, "Z": 0},
+			"Location": {"X": 900, "Y": -600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -234,7 +218,151 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": -300, "Z": 0},
+			"Location": {"X": 900, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 0, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -562,6 +690,54 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 400, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -587,6 +763,22 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 400, "Y": 100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -626,6 +818,22 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 600, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -651,6 +859,22 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 600, "Y": 100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -690,6 +914,22 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 800, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -722,7 +962,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -800, "Z": 0},
+			"Location": {"X": 900, "Y": -400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -730,7 +970,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -700, "Z": 0},
+			"Location": {"X": 900, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -738,7 +978,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -600, "Z": 0},
+			"Location": {"X": 900, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -746,7 +986,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -500, "Z": 0},
+			"Location": {"X": 900, "Y": -100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -754,7 +994,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -400, "Z": 0},
+			"Location": {"X": 900, "Y": 0, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -762,7 +1002,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -300, "Z": 0},
+			"Location": {"X": 900, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -770,7 +1010,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -200, "Z": 0},
+			"Location": {"X": 1000, "Y": -400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -778,7 +1018,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": -100, "Z": 0},
+			"Location": {"X": 1000, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -786,7 +1026,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": 0, "Z": 0},
+			"Location": {"X": 1000, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -794,7 +1034,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": 100, "Z": 0},
+			"Location": {"X": 1000, "Y": -100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -802,7 +1042,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": 200, "Z": 0},
+			"Location": {"X": 1000, "Y": 0, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -810,7 +1050,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": 300, "Z": 0},
+			"Location": {"X": 1000, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -818,7 +1058,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": 400, "Z": 0},
+			"Location": {"X": 1100, "Y": -400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -826,7 +1066,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -300, "Y": 500, "Z": 0},
+			"Location": {"X": 1100, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -834,7 +1074,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -800, "Z": 0},
+			"Location": {"X": 1100, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -842,7 +1082,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -700, "Z": 0},
+			"Location": {"X": 1100, "Y": -100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -850,7 +1090,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -600, "Z": 0},
+			"Location": {"X": 1100, "Y": 0, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -858,7 +1098,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -500, "Z": 0},
+			"Location": {"X": 1100, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -866,7 +1106,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -400, "Z": 0},
+			"Location": {"X": 1200, "Y": -400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -874,7 +1114,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -300, "Z": 0},
+			"Location": {"X": 1200, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -882,7 +1122,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -200, "Z": 0},
+			"Location": {"X": 1200, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -890,7 +1130,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": -100, "Z": 0},
+			"Location": {"X": 1200, "Y": -100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -898,7 +1138,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": 0, "Z": 0},
+			"Location": {"X": 1200, "Y": 0, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -906,7 +1146,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": 100, "Z": 0},
+			"Location": {"X": 1200, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -914,7 +1154,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": 200, "Z": 0},
+			"Location": {"X": 1300, "Y": -400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -922,7 +1162,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": 300, "Z": 0},
+			"Location": {"X": 1300, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -930,7 +1170,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": 400, "Z": 0},
+			"Location": {"X": 1300, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -938,7 +1178,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -200, "Y": 500, "Z": 0},
+			"Location": {"X": 1300, "Y": -100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -946,7 +1186,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -800, "Z": 0},
+			"Location": {"X": 1300, "Y": 0, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -954,7 +1194,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -700, "Z": 0},
+			"Location": {"X": 1300, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -962,7 +1202,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -600, "Z": 0},
+			"Location": {"X": -600, "Y": -800, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -970,7 +1210,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -500, "Z": 0},
+			"Location": {"X": -600, "Y": -700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -978,7 +1218,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -400, "Z": 0},
+			"Location": {"X": -600, "Y": -600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -986,7 +1226,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -300, "Z": 0},
+			"Location": {"X": -600, "Y": -500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -994,7 +1234,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -200, "Z": 0},
+			"Location": {"X": -600, "Y": -400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1002,7 +1242,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": -100, "Z": 0},
+			"Location": {"X": -600, "Y": -300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1010,7 +1250,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": 0, "Z": 0},
+			"Location": {"X": -600, "Y": -200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1018,7 +1258,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": 100, "Z": 0},
+			"Location": {"X": -600, "Y": -100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1026,7 +1266,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": 200, "Z": 0},
+			"Location": {"X": -600, "Y": 0, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1034,7 +1274,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": 300, "Z": 0},
+			"Location": {"X": -600, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1042,7 +1282,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": 400, "Z": 0},
+			"Location": {"X": -600, "Y": 200, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1050,7 +1290,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": -100, "Y": 500, "Z": 0},
+			"Location": {"X": -600, "Y": 300, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1058,7 +1298,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 0, "Y": 200, "Z": 0},
+			"Location": {"X": -600, "Y": 400, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1066,7 +1306,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 0, "Y": 300, "Z": 0},
+			"Location": {"X": -600, "Y": 500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1074,7 +1314,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 0, "Y": 400, "Z": 0},
+			"Location": {"X": -600, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1082,7 +1322,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 0, "Y": 500, "Z": 0},
+			"Location": {"X": -600, "Y": 700, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1090,7 +1330,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 100, "Y": 200, "Z": 0},
+			"Location": {"X": -600, "Y": 800, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1098,247 +1338,7 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 100, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 100, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 100, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 200, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 200, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 200, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 200, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 300, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 300, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 300, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 300, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 400, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 500, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 500, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 500, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 500, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 600, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 700, "Y": 500, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": 200, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": 300, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": 400, "Z": 0},
-			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
-			"Properties": {
-				"ObjectColor": "#FF0000FF"
-			}
-		},
-		{
-			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
-			"Location": {"X": 800, "Y": 500, "Z": 0},
+			"Location": {"X": -600, "Y": 900, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1482,6 +1482,14 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -500, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": -400, "Y": -800, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1618,6 +1626,126 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -400, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 0, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": -300, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1635,6 +1763,126 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": -300, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -300, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 0, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1666,6 +1914,46 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -200, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": -100, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1683,6 +1971,46 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": -100, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": -100, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 0, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 0, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 0, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 0, "Y": 500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1714,6 +2042,46 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 0, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 100, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 100, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 100, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 100, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 100, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1731,6 +2099,46 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 100, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 100, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 200, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 200, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 200, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 200, "Y": 500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1762,6 +2170,46 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 200, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 300, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 300, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 300, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 300, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 300, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1779,6 +2227,46 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 300, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 300, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": 500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1810,6 +2298,46 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 400, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 500, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1827,6 +2355,46 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 500, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 500, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": 500, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
@@ -1858,6 +2426,46 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 600, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 700, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1882,6 +2490,46 @@
 		},
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 700, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 800, "Y": 600, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
@@ -1899,6 +2547,942 @@
 		{
 			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
 			"Location": {"X": 800, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 800, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 900, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1000, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1100, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1200, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_DynamicWall.BP_DynamicWall_C",
+			"Location": {"X": 1300, "Y": 900, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": -800, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": -700, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": 0, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": 100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 600, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_ForceField.BP_ForceField_C",
+			"Location": {"X": 600, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_ForceField.BP_ForceField_C",
+			"Location": {"X": 600, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_ForceField.BP_ForceField_C",
+			"Location": {"X": 600, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 700, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 800, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 900, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 1000, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 1100, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 1200, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_InteriorWall.BP_InteriorWall_C",
+			"Location": {"X": 1300, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/Spinner.Spinner_C",
+			"Location": {"X": 300, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": -113, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/Spinner.Spinner_C",
+			"Location": {"X": 300, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 4, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -100, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -200, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -200, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -100, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -300, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -300, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -300, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -200, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -100, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -400, "Y": -600, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -400, "Y": -500, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -400, "Y": -400, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -400, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -300, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -200, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -100, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -400, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -300, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -200, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -100, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -400, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -300, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -200, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/SlidingTile.SlidingTile_C",
+			"Location": {"X": -100, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Push.BP_Push_C",
+			"Location": {"X": -300, "Y": -500, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_PressurePlate.BP_PressurePlate_C",
+			"Location": {"X": -300, "Y": -300, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -300, "Y": -200, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -300, "Y": -100, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -300, "Y": 0, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -300, "Y": 100, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -300, "Y": 200, "Z": 10},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -300, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -200, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": -100, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 0, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 100, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 200, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 300, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 400, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": 300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": 200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": 100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": 0, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": -100, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": -200, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 500, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 600, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 700, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 800, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 900, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 1000, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 1100, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Wire.BP_Wire_C",
+			"Location": {"X": 1200, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_Door.BP_Door_C",
+			"Location": {"X": 1300, "Y": -300, "Z": 0},
+			"Rotation": {"Pitch": 0, "Yaw": 89, "Roll": 0},
+			"Properties": {
+				"ObjectColor": "#FF0000FF"
+			}
+		},
+		{
+			"ActorClass": "/Game/Objects/BP_PlayerSpawn.BP_PlayerSpawn_C",
+			"Location": {"X": -500, "Y": 100, "Z": 0},
 			"Rotation": {"Pitch": 0, "Yaw": 0, "Roll": 0},
 			"Properties": {
 				"ObjectColor": "#FF0000FF"
