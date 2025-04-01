@@ -19,7 +19,9 @@ void UHLE_Movement::CanLook(const FInputActionValue& Value) {
 
 //Orbits the camera
 void UHLE_Movement::OribitCamera(const FInputActionValue& Value) {
+	GEngine->AddOnScreenDebugMessage(110, 5, FColor::Red, "We are here");
 	if (PanButtonPressed) {
+		
 		FVector2D PanVector = Value.Get<FVector2D>();
 
 		FVector ForwardVector = CameraArm->GetForwardVector();

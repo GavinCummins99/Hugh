@@ -83,7 +83,10 @@ void AHughLevelEditor::BeginPlay()
 	if (CameraArm) {
 		HLE_CameraComponent->CameraArm = CameraArm;
 	}
-    
+
+	SetInputMap();
+
+	/*
 	// Bind input for the component now that it exists
 	if (InputComponent)
 	{
@@ -122,6 +125,7 @@ void AHughLevelEditor::BeginPlay()
 			}
 		}
 	}
+	*/
 
 	GM = Cast<ALevelEditorGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	//Finds all actors in the folder
@@ -197,12 +201,56 @@ void AHughLevelEditor::SetObjectIndex(int NewIndex){
 void AHughLevelEditor::SetInputMap() {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("TEST FUNCTION CALLED"));
 
+	/*
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->ClearAllMappings();
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
+*/
+	// Bind input for the component now that it exists
+	if (InputComponent)
+	{
+		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
+		//Setup inputs for movement component
+		if(HLE_CameraComponent) {
+			if (IA_Zoom)
+			{
+				EnhancedInputComponent->BindAction(IA_Zoom, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::Zoom);
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Zoom bound in BeginPlay"));
+			}
+
+			if (IA_Look) {
+				EnhancedInputComponent->BindAction(IA_Look, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::OribitCamera);
+				
+			}
+
+			if (IA_LookButton) {
+				EnhancedInputComponent->BindAction(IA_LookButton, ETriggerEvent::Started, HLE_CameraComponent, &UHLE_Movement::CanLook);
+				EnhancedInputComponent->BindAction(IA_LookButton, ETriggerEvent::Completed, HLE_CameraComponent, &UHLE_Movement::CanLook);
+			}
+
+			if (IA_PanButton) {
+				EnhancedInputComponent->BindAction(IA_PanButton, ETriggerEvent::Started, HLE_CameraComponent, &UHLE_Movement::Pan);
+				EnhancedInputComponent->BindAction(IA_PanButton, ETriggerEvent::Completed, HLE_CameraComponent, &UHLE_Movement::Pan);
+			}
+		}
+		else {
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("No HLE_Movement"));
+		}
+		if (HLE_Placement){
+			if (IA_Place) {
+				EnhancedInputComponent->BindAction(IA_Place, ETriggerEvent::Started, HLE_Placement, &UHLE_Placement::StartPlacement);
+			}
+			if (IA_Place) {
+				EnhancedInputComponent->BindAction(IA_Place, ETriggerEvent::Completed, HLE_Placement, &UHLE_Placement::EndPlacement);
+			}
+			if (IA_RotateObject) {
+				EnhancedInputComponent->BindAction(IA_RotateObject, ETriggerEvent::Started, HLE_Placement, &UHLE_Placement::RotateObject);
+			}
 		}
 	}
 }

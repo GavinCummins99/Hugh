@@ -138,7 +138,7 @@ void UHLE_Placement::Trace() {
 		}
 		else {
 			//TargetRotation = FRotator(0,TargetYawRotation,0);
-			TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+			//TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 
 			//CurrentObject->SetActorRotation(FRotator(0,TargetYawRotation,0));
 		}
@@ -155,6 +155,8 @@ void UHLE_Placement::Trace() {
 		GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Blue, "Dist : " + FString::SanitizeFloat((CursorStartLoc - CursorLoc).Length()));
 
 	}
+
+	
 	//If no immediate hit check for point along plane 
 	else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
 		CursorLoc = IntersectionPoint;
@@ -179,6 +181,11 @@ void UHLE_Placement::Trace() {
 	CachedYLen = YLen;
 	}
 	*/
+
+	//Sets the objects rotation
+	TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+
+	
 	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building) PlaceObjects();
 	GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Green, "LEnghtssssssss : " + FString::FromInt(XLen) + " / " + FString::FromInt(YLen));
 
@@ -205,6 +212,7 @@ void UHLE_Placement::EndPlacement(){
 
 	for (auto Element : SpawnedObjects) {
 		AActor* Actor = Element.Value;
+		Actor->Tags.Add("LevelEditorObject");
 		UObjectProperties* Component = Actor->FindComponentByClass<UObjectProperties>();
     
 		if (Component) {
@@ -386,5 +394,7 @@ void UHLE_Placement::SetMaterial(AActor* Actor, UMaterialInterface* OverlayMater
 
 //Rotates object
 void UHLE_Placement::RotateObject() {
+	GEngine->AddOnScreenDebugMessage(5, 5.0f, FColor::Red, TEXT("Rotate object"));
+
 	TargetYawRotation += 45;
 }
