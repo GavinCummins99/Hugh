@@ -568,7 +568,7 @@ void AHughLevelEditor::SetObject(int Index) {
 void AHughLevelEditor::SetMode(Modes NewMode) {
 	EditorMode = NewMode;
 
-	DisplayMesh->SetVisibility(NewMode == Modes::Building);
+	if (DisplayMesh) DisplayMesh->SetVisibility(NewMode == Modes::Building);
 	for (auto Element : GhostObjects) {
 		Element->Destroy();
 	}
@@ -640,8 +640,7 @@ UObjectProperties* AHughLevelEditor::GetObjectProperties()
 
 		// Get components from the generated class
 		TArray<TObjectPtr<UActorComponent>> ComponentTemplates = Cast<UBlueprintGeneratedClass>(Blueprint->GeneratedClass)->ComponentTemplates;
-
-        
+		
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
 			FString::Printf(TEXT("Found %d component templates"), ComponentTemplates.Num()));
 

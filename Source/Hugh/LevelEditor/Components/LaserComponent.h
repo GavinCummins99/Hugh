@@ -20,7 +20,16 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Laser") int MaxBounces = 8;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Laser") FHitResult LaserHitResult;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) UStaticMesh* LaserMesh;
 
 protected:
 	void UseLaser();
+	void CreateSegment(FVector Start, FVector End, int32 SegmentIndex);
+	float LaserThickness = 0.075;
+	
+	// Array to keep track of created segments
+	UPROPERTY()
+	TArray<UStaticMeshComponent*> LaserSegments;
+    
+	void ClearLaserSegments();
 };

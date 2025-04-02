@@ -59,7 +59,7 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
 		ActorsToIgnore.Add(GetOwner()); 
 
 		//Do box check
-		if (!UKismetSystemLibrary::UKismetSystemLibrary::BoxTraceSingle(GetWorld(), Start, End, HalfSize, Orientation,UEngineTypes::ConvertToTraceType(ECC_Visibility),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,FLinearColor::Red,FLinearColor::Green,.1f)) {
+		if (!UKismetSystemLibrary::UKismetSystemLibrary::BoxTraceSingle(GetWorld(), Start, End, HalfSize, Orientation,UEngineTypes::ConvertToTraceType(ECC_Visibility),false, ActorsToIgnore, EDrawDebugTrace::None,HitResult,true,FLinearColor::Red,FLinearColor::Green,.1f)) {
 			End.Z = GetOwner()->GetActorLocation().Z;
 			Target = End;
 			//Push_Move(End);
