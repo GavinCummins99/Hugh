@@ -640,8 +640,7 @@ UObjectProperties* AHughLevelEditor::GetObjectProperties()
 
 		// Get components from the generated class
 		TArray<TObjectPtr<UActorComponent>> ComponentTemplates = Cast<UBlueprintGeneratedClass>(Blueprint->GeneratedClass)->ComponentTemplates;
-
-        
+		
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, 
 			FString::Printf(TEXT("Found %d component templates"), ComponentTemplates.Num()));
 
