@@ -34,7 +34,7 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	
 	Trace();
 	//CurrentObject->SetHidden(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
-	Cast<AActor>(CurrentObject)->SetActorHiddenInGame(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
+	if (CurrentObject) Cast<AActor>(CurrentObject)->SetActorHiddenInGame(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
 	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building){
 		GEngine->AddOnScreenDebugMessage(120, 10, FColor::Red, "True");
 

@@ -270,7 +270,7 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
                     // Create a new JSON object to store component properties
                     TSharedPtr<FJsonObject> PropertiesJson = MakeShared<FJsonObject>();
                     PropertiesJson->SetStringField("ObjectColor", HexColor);
-                    
+                     
                     // Add the properties object to the actor JSON
                     ActorJson->SetObjectField("Properties", PropertiesJson);
                 }
@@ -309,15 +309,26 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
             FString::FromInt((int32)RotationObj->GetNumberField("Yaw")) + ", \"Roll\": " + 
             FString::FromInt((int32)RotationObj->GetNumberField("Roll")) + "}";
         
-        // Add ObjectColor if it exists
+        // Add Properties if they exist
         if (ActorObj->HasField("Properties")) {
             const TSharedPtr<FJsonObject>& PropertiesObj = ActorObj->GetObjectField("Properties");
+    
+            OutputString += ",\n\t\t\t\"Properties\": {\n";
+    
+            // Add ObjectColor if it exists
             if (PropertiesObj->HasField("ObjectColor")) {
-                OutputString += ",\n\t\t\t\"Properties\": {\n";
-                OutputString += "\t\t\t\t\"ObjectColor\": \"" + PropertiesObj->GetStringField("ObjectColor") + "\"\n";
-                OutputString += "\t\t\t}";
+                OutputString += "\t\t\t\t\"ObjectColor\": \"" + PropertiesObj->GetStringField("ObjectColor") + "\"";
+        
+                // Add comma if Pushable also exists
+                if (PropertiesObj->HasField("Pushable")) {
+                    OutputString += ",\n";
+                } else {
+                    OutputString += "\n";
+                }
             }
         }
+
+        
         
         // Add closing brace (with comma if not the last item)
         if (i < ActorArray.Num() - 1) {
@@ -610,6 +621,8 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName) {
                 AActor* NewActor = World->SpawnActor<AActor>(ActorClass, Location, Rotation, SpawnParams);
                 if (NewActor)
                 {
+
+                    
                     // Add the LevelEditorObject tag
                     NewActor->Tags.Add(FName("LevelEditorObject"));
                     
@@ -621,6 +634,8 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName) {
                         UObjectProperties* PropertiesComp = Cast<UObjectProperties>(NewActor->GetComponentByClass(UObjectProperties::StaticClass()));
                         if (PropertiesComp)
                         {
+                            PropertiesComp->OnPlaced();
+                            
                             // Check if we have an ObjectColor property
                             FString HexColorString;
                             if ((*PropertiesObj)->TryGetStringField(TEXT("ObjectColor"), HexColorString))

@@ -59,5 +59,6 @@ public:
 
 	UFUNCTION(BlueprintCallable) void OnPlaced();
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
+
 		
 };
