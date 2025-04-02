@@ -66,7 +66,13 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
 
 		}
 		else {
-			//Target = FVector(Hit.Location.X,Hit.Location.Y,GetOwner()->GetActorLocation().Z);
+			if (HitResult.GetActor()->GetComponentByClass<UObjectProperties>()->ObjectColor == ObjectColor){
+				End.Z = GetOwner()->GetActorLocation().Z;
+				Target = End;
+			}
+			else{
+				//Target = FVector(Hit.Location.X,Hit.Location.Y,GetOwner()->GetActorLocation().Z);
+			}
 		}
 
 	}
