@@ -568,7 +568,7 @@ void AHughLevelEditor::SetObject(int Index) {
 void AHughLevelEditor::SetMode(Modes NewMode) {
 	EditorMode = NewMode;
 
-	DisplayMesh->SetVisibility(NewMode == Modes::Building);
+	if (DisplayMesh) DisplayMesh->SetVisibility(NewMode == Modes::Building);
 	for (auto Element : GhostObjects) {
 		Element->Destroy();
 	}
