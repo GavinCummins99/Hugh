@@ -356,6 +356,8 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName) {
                         UObjectProperties* PropertiesComp = Cast<UObjectProperties>(NewActor->GetComponentByClass(UObjectProperties::StaticClass()));
                         if (PropertiesComp)
                         {
+                            PropertiesComp->OnPlaced();
+                            
                             // Check if we have an ObjectColor property
                             FString HexColorString;
                             if ((*PropertiesObj)->TryGetStringField(TEXT("ObjectColor"), HexColorString))

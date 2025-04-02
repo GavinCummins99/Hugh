@@ -672,7 +672,12 @@ void AHughLevelEditor::RemoveSelectedObjects() {
 
 void AHughLevelEditor::ClearSelectedObjects() {
 	for (auto Element : SelectedObjects) {
-		Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+		try{
+			Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+		}
+		catch(...){
+			UE_LOG(LogTemp, Log, TEXT("Object did not have static mesh"));
+		}
 	}
 	SelectedObjects.Empty();
 }
