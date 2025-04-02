@@ -141,7 +141,7 @@ public:
 	float PanStrenght = 40;
 	float PanDir = 1;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) Modes EditorMode;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) Modes EditorMode = Modes::Building;
 	UPROPERTY(BlueprintReadOnly) TArray<AActor*> TaggedObjects;
 	UPROPERTY(BlueprintReadOnly) TArray<AActor*> SelectedObjects;
 

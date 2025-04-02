@@ -33,8 +33,18 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
 	Trace();
+	//CurrentObject->SetHidden(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
+	Cast<AActor>(CurrentObject)->SetActorHiddenInGame(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
+	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building){
+		GEngine->AddOnScreenDebugMessage(120, 10, FColor::Red, "True");
+
+	}
+	else{
+		GEngine->AddOnScreenDebugMessage(120, 10, FColor::Red, "False");
+
+	}
+
 	if (CurrentObject && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building){
-		CurrentObject->SetHidden(false);
 		if (IsPlacing){
 			//CurrentObject->SetActorLocation(Snap(CursorStartLoc));
 			//CurrentObject->SetActorLocation(Snap(CursorLoc));
@@ -48,7 +58,6 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 		}
 	}
 	else {
-		CurrentObject->SetHidden(true);
 	}
 	//TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 	//FRotator TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
