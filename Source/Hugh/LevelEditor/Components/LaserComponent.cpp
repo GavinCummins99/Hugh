@@ -2,6 +2,7 @@
 
 #include "DrawDebugHelpers.h"
 #include "JsonObjectConverter.h"
+#include "ObjectProperties.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -26,36 +27,83 @@ void ULaserComponent::UseLaser()
     FVector StartLocation = GetComponentLocation();
     FVector EndLocation = GetComponentLocation() + (GetForwardVector() * 100000);
     FHitResult Hit;
-
-    // Bounce laser a max of 'i' times
+    
+    // Create a temporary list of actors to ignore for this laser trace
+    TArray<AActor*> ActorsToIgnore;
+    
+    // Bounce laser a max of 'MaxBounces' times
     for (int i = 0; i < MaxBounces; i++) {
+        // Setup trace parameters with actors to ignore
+        FCollisionQueryParams QueryParams;
+        QueryParams.AddIgnoredActors(ActorsToIgnore);
+        
         // Shoot laser
-        GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Camera);
+        GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Camera, QueryParams);
         LaserHitResult = Hit;
 
         if (Hit.bBlockingHit) {
             // Create segment to the hit point
             CreateSegment(StartLocation, Hit.Location, i);
-
-            // Bounce laser
-            StartLocation = Hit.Location;
-            FVector ReflectedDirection = UKismetMathLibrary::MirrorVectorByNormal(
-                (EndLocation - StartLocation).GetSafeNormal(), 
-                Hit.Normal
-            );
-            EndLocation = StartLocation + ReflectedDirection * 100000;
-
-            // Break out of loop if hit component is not mirror
-            if (!Hit.Component->ComponentHasTag("Mirror")) 
-                break;
+            
+            // Get the hit actor
+            AActor* HitActor = Hit.GetActor();
+            if (!HitActor) {
+                break; // No actor hit
+            }
+            
+            // PRIORITY 1: Check for mirrors first (before any color checking)
+            // This ensures mirrors always work regardless of color
+            if (Hit.Component.IsValid() && Hit.Component->ComponentHasTag("Mirror")) {
+                // Bounce laser off mirror
+                StartLocation = Hit.Location;
+                FVector ReflectedDirection = UKismetMathLibrary::MirrorVectorByNormal(
+                    (EndLocation - StartLocation).GetSafeNormal(), 
+                    Hit.Normal
+                );
+                EndLocation = StartLocation + ReflectedDirection * 100000;
+                
+                // Continue to next iteration with new direction
+                continue;
+            }
+            
+            // PRIORITY 2: If not a mirror, check for color-based interaction
+            UObjectProperties* ObjProperties = HitActor->FindComponentByClass<UObjectProperties>();
+            UObjectProperties* LaserProperties = GetOwner()->FindComponentByClass<UObjectProperties>();
+            
+            // If both objects have property components, check colors
+            if (ObjProperties && LaserProperties) {
+                // If colors match, pass through
+                if (ObjProperties->ObjectColor == LaserProperties->ObjectColor) {
+                    // Add this actor to the ignore list
+                    ActorsToIgnore.AddUnique(HitActor);
+                    
+                    // Pass through this object of the same color
+                    StartLocation = Hit.Location;
+                    
+                    // Continue in the same direction
+                    FVector Direction = (EndLocation - StartLocation).GetSafeNormal();
+                    EndLocation = StartLocation + Direction * 100000;
+                    continue; // Continue to next iteration
+                }
+                // If colors don't match, block the laser
+                else {
+                    // Different color = blocked
+                    break;
+                }
+            }
+            
+            // If we reach here, it's a hit with no special properties
+            // Default behavior is to block the laser
+            break;
         }
         else {
-            // Create segment to the end point (no hit)
+            // No hit, create segment to the end point
             CreateSegment(StartLocation, EndLocation, i);
             break;
         }
     }
 }
+
 
 void ULaserComponent::CreateSegment(FVector Start, FVector End, int32 SegmentIndex)
 {

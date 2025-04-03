@@ -273,8 +273,13 @@ void AHughLevelEditor::Tick(float DeltaTime)
 	//PlayerController->GetInputMouseDelta(SavedMouseLoc.X, SavedMouseLoc.Y);
 	//
 	//
-	int XLen = DisplayMesh->GetComponentLocation().X / 100;
-	int YLen = DisplayMesh->GetComponentLocation().Y / 100;
+	int XLen = 0;
+	int YLen = 0;
+	if (DisplayMesh){
+		XLen = DisplayMesh->GetComponentLocation().X / 100;
+		YLen = DisplayMesh->GetComponentLocation().Y / 100;
+	}
+
 
 	GEngine->AddOnScreenDebugMessage(0 ,0, FColor::Blue, FString::FromInt(XLen));
 	GEngine->AddOnScreenDebugMessage(1 ,0, FColor::Blue, FString::FromInt(YLen));

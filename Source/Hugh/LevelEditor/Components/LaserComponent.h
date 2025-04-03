@@ -17,7 +17,7 @@ public:
 
 	//Global properties
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Laser") FColor LaserColor = FColor::Red;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Laser") int MaxBounces = 8;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Laser") int MaxBounces = 16;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Laser") FHitResult LaserHitResult;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) UStaticMesh* LaserMesh;
