@@ -107,7 +107,7 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
             
     		GEngine->AddOnScreenDebugMessage(1236, 2.0f, FColor::Red, 
 				FString::Printf(TEXT("Max move distance: %f"), MaxMoveDistance));
-    	} else {
+    	} else if (!bHit || HitResult.GetActor()->GetComponentByClass<UObjectProperties>()->MetaTages.Contains("CanPhase")){
     		// No wall detected, move in push direction
     		Target = Start + (PushDirection * 10); // Move a predefined distance
     		Target.Z = GetOwner()->GetActorLocation().Z;

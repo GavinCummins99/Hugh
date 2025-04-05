@@ -13,8 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStoppedPushing);
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class HUGH_API UObjectProperties : public UActorComponent
-{
+class HUGH_API UObjectProperties : public UActorComponent{
 	GENERATED_BODY()
 
 public:	
@@ -66,4 +65,5 @@ public:
 	FVector Direction = FVector(0, 0, 0);
 	float TimeStartPush = 0;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) bool IsPushing = false;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<FString> MetaTages;
 };
