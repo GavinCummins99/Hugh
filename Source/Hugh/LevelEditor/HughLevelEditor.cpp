@@ -34,6 +34,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Materials/Material.h"
 #include "HLE_Movement.h"
+#include "ShaderCompiler.h"
+#include "ViewportInteractionTypes.h"
 #include "Runtime/Media/Public/IMediaControls.h"
 
 // Sets default values
@@ -157,7 +159,7 @@ void AHughLevelEditor::SetObjectIndex(int NewIndex){
 	FActorSpawnParameters SpawnInfo;
 	if (HLE_Placement->CurrentObject) HLE_Placement->CurrentObject->Destroy();
 	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[NewIndex]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
-
+	HLE_Placement->SetObjectOverlayMaterial(nullptr, nullptr);
 
 	if (HLE_Placement->CurrentObject)
 	{
@@ -364,15 +366,21 @@ void AHughLevelEditor::Trace() {
 		DisplayMesh->SetWorldLocation(Snap(Hit.ImpactPoint + (Hit.ImpactNormal * 25)));
 
 		if(EditorMode != Modes::Building) {
-			if(HoveredObject && !TaggedObjects.Contains(HoveredObject) && !SelectedObjects.Contains(HoveredObject) && EditorMode == Modes::Removing) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);////////////////////////////////
+			//if(HoveredObject && !TaggedObjects.Contains(HoveredObject) && !SelectedObjects.Contains(HoveredObject) && EditorMode == Modes::Removing) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);////////////////////////////////
+			//if(HoveredObject && !TaggedObjects.Contains(HoveredObject) && !SelectedObjects.Contains(HoveredObject) && EditorMode == Modes::Removing) HLE_Placement->SetObjectOverlayMaterial(HoveredObject, nullptr);
+			//if(HoveredObject) HLE_Placement->SetObjectOverlayMaterial(HoveredObject, nullptr);
 			HoveredObject = Hit.GetActor();
-			if(EditorMode == Modes::Removing) Hit.GetActor()->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditorMode == Modes::Removing? RemovingMaterial : EditingMaterial);//////////////////
+			//if(EditorMode == Modes::Removing) Hit.GetActor()->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditorMode == Modes::Removing? RemovingMaterial : EditingMaterial);//////////////////
+			//if(EditorMode == Modes::Removing) HLE_Placement->SetObjectOverlayMaterial(HoveredObject, EditorMode == Modes::Removing? RemovingMaterial : EditingMaterial);
+
 		}
 	}
 	//If no immediate hit check for point along plane 
 	else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
 		DisplayMesh->SetWorldLocation(Snap(IntersectionPoint + (Hit.ImpactNormal * 25)));
-		if(HoveredObject && !SelectedObjects.Contains(HoveredObject)) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+		//if(HoveredObject && !SelectedObjects.Contains(HoveredObject)) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+		//if(HoveredObject && !SelectedObjects.Contains(HoveredObject)) HLE_Placement->SetObjectOverlayMaterial(HoveredObject, nullptr);
+
 	}
 }
 
@@ -459,7 +467,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 				else
 				{
 					SelectedObjects.Add(Element);
-					Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditingMaterial);
+					//Element->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(EditingMaterial);
 					GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Blue, "Add" );
 
 				}
@@ -573,13 +581,15 @@ void AHughLevelEditor::SetObject(int Index) {
 void AHughLevelEditor::SetMode(Modes NewMode) {
 	EditorMode = NewMode;
 
+	HLE_Placement->SetObjectOverlayMaterial(nullptr, nullptr);
+
 	if (DisplayMesh) DisplayMesh->SetVisibility(NewMode == Modes::Building);
 	for (auto Element : GhostObjects) {
 		Element->Destroy();
 	}
 	GhostObjects.Empty();
 	
-	if(HoveredObject) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
+	//if(HoveredObject) HoveredObject->GetComponentByClass<UStaticMeshComponent>()->SetOverlayMaterial(nullptr);
 
 }
 

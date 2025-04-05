@@ -3,6 +3,7 @@
 
 #include "HLE_Placement.h"
 #include "HughLevelEditor.h"
+#include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Runtime/Media/Public/IMediaControls.h"
 
@@ -109,15 +110,39 @@ void UHLE_Placement::Trace() {
 	float T;
 
 	//For for immediate line trace hit
-	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, QueryParams)) {
+	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Camera, QueryParams)) {
 		PlaneOrigin = Hit.Location;
-		HoveredObject = Hit.GetActor();
+
+		if (HoveredObject){
+			if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Removing){
+				SetObjectOverlayMaterial(HoveredObject, nullptr);
+				HoveredObject = Hit.GetActor();
+				SetObjectOverlayMaterial(HoveredObject, Cast<AHughLevelEditor>(GetOwner())->RemovingMaterial);
+			}
+			else if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Editing && HoveredObject != Hit.GetActor() && IsPlacing){
+				HoveredObject = Hit.GetActor();
+				if (SelectedObjects.Contains(HoveredObject)){
+					SetObjectOverlayMaterial(HoveredObject, nullptr);
+					SelectedObjects.Remove(HoveredObject);
+				}
+				else{
+					SetObjectOverlayMaterial(HoveredObject, Cast<AHughLevelEditor>(GetOwner())->EditingMaterial);
+					SelectedObjects.Add(HoveredObject);
+				}
+			}
+
+		}
+		else{
+			HoveredObject = Hit.GetActor();
+		}
 
 		///+ (Hit.ImpactNormal * 25)
 		if (!IsPlacing)CursorLoc = Hit.ImpactPoint;
 		else if (UKismetMathLibrary::LinePlaneIntersection(Start, End, FPlane(PlaneOrigin, PlaneNormal), T, IntersectionPoint)) {
 			CursorLoc = IntersectionPoint;
 		}
+
+		
 
 		
 		/*DisplayMesh->SetWorldLocation(Snap(Hit.ImpactPoint + (Hit.ImpactNormal * 25)));
@@ -153,10 +178,10 @@ void UHLE_Placement::Trace() {
 		}
 
 
-		if (IsPlacing && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Editing){
-			SetMaterial(Hit.GetActor(), Cast<AHughLevelEditor>(GetOwner())->EditingMaterial);
-			Cast<AHughLevelEditor>(GetOwner())->SelectedObjects.Add(Hit.GetActor());
-		}
+		//if (IsPlacing && Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Editing){
+		//	SetMaterial(Hit.GetActor(), Cast<AHughLevelEditor>(GetOwner())->EditingMaterial);
+		//	Cast<AHughLevelEditor>(GetOwner())->SelectedObjects.Add(Hit.GetActor());
+		//}
 
 		
 
@@ -192,13 +217,10 @@ void UHLE_Placement::Trace() {
 	*/
 
 	//Sets the objects rotation
-	TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+	if (CurrentObject) TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 
 	
 	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building) PlaceObjects();
-	GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Green, "LEnghtssssssss : " + FString::FromInt(XLen) + " / " + FString::FromInt(YLen));
-
-
 	
 }
 
@@ -206,9 +228,8 @@ void UHLE_Placement::StartPlacement(){
 	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building || Cast<AHughLevelEditor>(GetOwner())->EditorMode ==Modes::Editing) {
 		CursorStartLoc = Snap(CursorLoc);
 		IsPlacing = true;
-		GEngine->AddOnScreenDebugMessage(101, 5.f, FColor::Blue, "Start : " + CursorStartLoc.ToString());
 	}
-	else if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Removing) {
+	else if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Removing && HoveredObject) {
 		HoveredObject->Destroy();
 	}
 }
@@ -216,8 +237,7 @@ void UHLE_Placement::StartPlacement(){
 void UHLE_Placement::EndPlacement(){
 	CursorEndLoc = CursorLoc;
 	IsPlacing = false;
-	GEngine->AddOnScreenDebugMessage(100, 5.f, FColor::Blue, "End : " + CursorEndLoc.ToString());
-	GEngine->AddOnScreenDebugMessage(100, 5.f, FColor::Blue, "Distance : " + (CursorStartLoc - CursorEndLoc).ToString());
+	HoveredObject =nullptr;
 
 	for (auto Element : SpawnedObjects) {
 		AActor* Actor = Element.Value;
@@ -406,4 +426,65 @@ void UHLE_Placement::RotateObject() {
 	GEngine->AddOnScreenDebugMessage(5, 5.0f, FColor::Red, TEXT("Rotate object"));
 
 	TargetYawRotation += 45;
+}
+
+
+void UHLE_Placement::SetObjectOverlayMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial)
+{
+	if (!Actor) {
+		if (HoveredObject) Actor = HoveredObject;
+		else return;
+	}
+    
+	// Get all Static Mesh Components
+	TArray<UStaticMeshComponent*> StaticMeshComponents;
+	Actor->GetComponents<UStaticMeshComponent>(StaticMeshComponents);
+    
+	// Apply overlay material to all Static Mesh Components
+	for (UStaticMeshComponent* MeshComp : StaticMeshComponents)
+	{
+		if (MeshComp && MeshComp->IsValidLowLevel())
+		{
+			MeshComp->SetOverlayMaterial(OverlayMaterial);
+		}
+	}
+    
+	// Get all Skeletal Mesh Components
+	TArray<USkeletalMeshComponent*> SkeletalMeshComponents;
+	Actor->GetComponents<USkeletalMeshComponent>(SkeletalMeshComponents);
+    
+	// Apply overlay material to all Skeletal Mesh Components
+	for (USkeletalMeshComponent* SkeletalMeshComp : SkeletalMeshComponents)
+	{
+		if (SkeletalMeshComp && SkeletalMeshComp->IsValidLowLevel())
+		{
+			SkeletalMeshComp->SetOverlayMaterial(OverlayMaterial);
+		}
+	}
+}
+
+void UHLE_Placement::RemoveSelectedObjects(bool Destroy) {
+	for (auto Element : SelectedObjects) {
+		if (Destroy){
+			Element->Destroy();
+		}
+		else{
+			SetObjectOverlayMaterial(Element, nullptr);
+		}
+	}
+	SelectedObjects.Empty();
+}
+
+void UHLE_Placement::ReplaceSelectedObjects(AActor* NewObject) {
+	UObjectProperties* ObjProp = Cast<AHughLevelEditor>(GetOwner())->ObjectProperties;
+	if (ObjProp){
+		for (auto Element : SelectedObjects) {
+			//Element = NewObject;
+			FVector Location = Element->GetActorLocation();
+			FRotator Rotation = Element->GetActorRotation();
+			FActorSpawnParameters SpawnInfo;
+			AActor* SpawnedActor = GetWorld()->SpawnActor(NewObject->GetClass(), &Location, &Rotation, SpawnInfo);
+		}
+		RemoveSelectedObjects(true);
+	}
 }

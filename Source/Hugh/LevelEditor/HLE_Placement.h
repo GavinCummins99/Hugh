@@ -39,12 +39,15 @@ protected:
 	AActor* HoveredObject;
 	FRotator TargetRotation;
 
+
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) AActor* CurrentObject;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) AActor* PlaceTemp;
+	UPROPERTY(BlueprintReadOnly) TArray<AActor*> SelectedObjects;
 	
 	void Trace();
 	void StartPlacement();
@@ -54,10 +57,11 @@ public:
 	FVector Snap(FVector InVector);
 	void SetMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial);
 	void RotateObject();
+	void SetObjectOverlayMaterial(AActor* Actor, UMaterialInterface* OverlayMaterial);
+	UFUNCTION(BlueprintCallable) void RemoveSelectedObjects(bool Destroy);
+	UFUNCTION(BlueprintCallable)void ReplaceSelectedObjects(AActor* NewObject);
 	void RemoveHovered();
 
-
-
-
+	UPROPERTY(BlueprintReadOnly) bool Pushing = false;
 };
 

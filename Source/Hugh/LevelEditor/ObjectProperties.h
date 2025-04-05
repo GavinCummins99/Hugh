@@ -23,6 +23,7 @@ public:
 
 
 protected:
+	UFUNCTION()
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
@@ -36,6 +37,7 @@ public:
 	// Called every frame
 	UPROPERTY()FVector Target = FVector(0,0,220);
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	void CheckGround();
 
 
 	//Objects settings
@@ -58,7 +60,10 @@ public:
 	UPROPERTY(BlueprintAssignable) FObjectPlaced OnOStoppedPushing;
 
 	UFUNCTION(BlueprintCallable) void OnPlaced();
+	FVector Snap(FVector InVector);
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 
-		
+	FVector Direction = FVector(0, 0, 0);
+	float TimeStartPush = 0;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) bool IsPushing = false;
 };
