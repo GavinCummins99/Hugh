@@ -38,7 +38,7 @@ void ULaserComponent::UseLaser()
         QueryParams.AddIgnoredActors(ActorsToIgnore);
         
         // Shoot laser
-        GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Camera, QueryParams);
+        GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_Visibility, QueryParams);
         LaserHitResult = Hit;
 
         if (Hit.bBlockingHit) {
@@ -73,7 +73,7 @@ void ULaserComponent::UseLaser()
             // If both objects have property components, check colors
             if (ObjProperties && LaserProperties) {
                 // If colors match, pass through
-                if (ObjProperties->ObjectColor == LaserProperties->ObjectColor) {
+                if (ObjProperties->ObjectColor == LaserProperties->ObjectColor && ObjProperties->MetaTages.Contains("CanPhase")) {
                     // Add this actor to the ignore list
                     ActorsToIgnore.AddUnique(HitActor);
                     
