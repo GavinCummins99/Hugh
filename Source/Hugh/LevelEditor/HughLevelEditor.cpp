@@ -156,6 +156,7 @@ void AHughLevelEditor::BeginPlay()
 }
 
 void AHughLevelEditor::SetObjectIndex(int NewIndex){
+	ObjectIndex = NewIndex;
 	FActorSpawnParameters SpawnInfo;
 	if (HLE_Placement->CurrentObject) HLE_Placement->CurrentObject->Destroy();
 	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[NewIndex]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
