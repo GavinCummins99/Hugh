@@ -1,11 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "HLE_Placement.h"
 #include "HughLevelEditor.h"
-#include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "Runtime/Media/Public/IMediaControls.h"
 
 // Sets default values for this component's properties
 UHLE_Placement::UHLE_Placement()
@@ -164,11 +159,13 @@ void UHLE_Placement::Trace() {
 		}
 
 		//Sets the new Rotation of the object
-		if (CurrentObject->GetComponentByClass<UObjectProperties>()->AlignNormalToface){
-			FRotator NewRotation = Hit.Normal.Rotation(); 
-			NewRotation.Pitch -= 90.0f;
-			TargetRotation = NewRotation;
-			//CurrentObject->SetActorRotation(NewRotation);
+		if (CurrentObject && CurrentObject->GetComponentByClass<UObjectProperties>()){
+			if (CurrentObject->GetComponentByClass<UObjectProperties>()->AlignNormalToface) {
+				FRotator NewRotation = Hit.Normal.Rotation(); 
+				NewRotation.Pitch -= 90.0f;
+				TargetRotation = NewRotation;
+				//CurrentObject->SetActorRotation(NewRotation);
+			}
 		}
 		else {
 			//TargetRotation = FRotator(0,TargetYawRotation,0);
@@ -217,7 +214,7 @@ void UHLE_Placement::Trace() {
 	*/
 
 	//Sets the objects rotation
-	if (CurrentObject) TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
+	if (CurrentObject && CurrentObject->GetComponentByClass<UObjectProperties>()) TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 
 	
 	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode == Modes::Building) PlaceObjects();

@@ -69,8 +69,70 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
                 }
             }
 
-            // Add this actor's JSON object to our array
-            ActorArray.Add(MakeShared<FJsonValueObject>(ActorJson));
+            // Check if this actor is a duplicate before adding
+            bool bIsDuplicate = false;
+            for (const TSharedPtr<FJsonValue>& ExistingActorValue : ActorArray) {
+                const TSharedPtr<FJsonObject>& ExistingActor = ExistingActorValue->AsObject();
+                
+                // Compare class
+                if (ExistingActor->GetStringField("ActorClass") != ActorJson->GetStringField("ActorClass")) {
+                    continue;
+                }
+                
+                // Compare location
+                const TSharedPtr<FJsonObject>& ExistingLocation = ExistingActor->GetObjectField("Location");
+                const TSharedPtr<FJsonObject>& NewLocation = ActorJson->GetObjectField("Location");
+                if (ExistingLocation->GetNumberField("X") != NewLocation->GetNumberField("X") ||
+                    ExistingLocation->GetNumberField("Y") != NewLocation->GetNumberField("Y") ||
+                    ExistingLocation->GetNumberField("Z") != NewLocation->GetNumberField("Z")) {
+                    continue;
+                }
+                
+                // Compare rotation
+                const TSharedPtr<FJsonObject>& ExistingRotation = ExistingActor->GetObjectField("Rotation");
+                const TSharedPtr<FJsonObject>& NewRotation = ActorJson->GetObjectField("Rotation");
+                if (ExistingRotation->GetNumberField("Pitch") != NewRotation->GetNumberField("Pitch") ||
+                    ExistingRotation->GetNumberField("Yaw") != NewRotation->GetNumberField("Yaw") ||
+                    ExistingRotation->GetNumberField("Roll") != NewRotation->GetNumberField("Roll")) {
+                    continue;
+                }
+                
+                // Compare properties (if they exist)
+                if (ExistingActor->HasField("Properties") && ActorJson->HasField("Properties")) {
+                    const TSharedPtr<FJsonObject>& ExistingProps = ExistingActor->GetObjectField("Properties");
+                    const TSharedPtr<FJsonObject>& NewProps = ActorJson->GetObjectField("Properties");
+                    
+                    // Compare colors if they exist
+                    if (ExistingProps->HasField("ObjectColor") && NewProps->HasField("ObjectColor")) {
+                        if (ExistingProps->GetStringField("ObjectColor") != NewProps->GetStringField("ObjectColor")) {
+                            continue;
+                        }
+                    }
+                    // If one has properties and the other doesn't, they're not duplicates
+                    else if (ExistingProps->HasField("ObjectColor") != NewProps->HasField("ObjectColor")) {
+                        continue;
+                    }
+                }
+                else if (ExistingActor->HasField("Properties") != ActorJson->HasField("Properties")) {
+                    // If one has properties and the other doesn't, they're not duplicates
+                    continue;
+                }
+                
+                // If we got here, all properties match
+                bIsDuplicate = true;
+                break;
+            }
+            
+            // Only add this actor if it's not a duplicate
+            if (!bIsDuplicate) {
+                ActorArray.Add(MakeShared<FJsonValueObject>(ActorJson));
+                UE_LOG(LogTemp, Log, TEXT("Added actor to level: %s at X=%f, Y=%f, Z=%f"), 
+                    *Actor->GetClass()->GetPathName(), Location.X, Location.Y, Location.Z);
+            }
+            else {
+                UE_LOG(LogTemp, Warning, TEXT("Skipped duplicate actor: %s at X=%f, Y=%f, Z=%f"), 
+                    *Actor->GetClass()->GetPathName(), Location.X, Location.Y, Location.Z);
+            }
         }
     }
 
@@ -182,7 +244,7 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
     // Send the request
     Request->ProcessRequest();
 
-    UE_LOG(LogTemp, Log, TEXT("Uploading level to Firebase: %s"), *FileName);
+    UE_LOG(LogTemp, Log, TEXT("Uploading level to Firebase: %s (with %d unique actors)"), *FileName, ActorArray.Num());
 }
 
 //Loads a level file from Firebase Storage

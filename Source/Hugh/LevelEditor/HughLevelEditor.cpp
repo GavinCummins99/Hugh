@@ -1,42 +1,26 @@
 #include "HughLevelEditor.h"
-//#include "EnhancedInputComponent.h"
-
-#include "ActorFolder.h"
-#include "Engine/AssetManager.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Class.h"
 #include "GameFramework/Actor.h"
-#include "JsonObjectConverter.h"
 #include "Misc/FileHelper.h"
-#include "EngineUtils.h"
-#include "AsyncTreeDifferences.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
-#include "EditorActorFolders.h"
-#include "EngineUtils.h"
-#include "JsonObjectConverter.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/BlueprintGeneratedClass.h"
 #include "../LevelEditorGameMode.h"
 #include "ObjectProperties.h"
 #include "AssetRegistry/AssetData.h"
 #include "Components/StaticMeshComponent.h"
-#include "Editor/BehaviorTreeEditor/Public/BehaviorTreeColors.h"
-#include "Editor/BehaviorTreeEditor/Public/BehaviorTreeColors.h"
 #include "Engine/Blueprint.h"
 #include "Engine/Engine.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/LocalPlayer.h"
-#include "Engine/SCS_Node.h"
-#include "Engine/SimpleConstructionScript.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "UObject/UObjectIterator.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Materials/Material.h"
 #include "HLE_Movement.h"
-#include "ShaderCompiler.h"
-#include "ViewportInteractionTypes.h"
-#include "Runtime/Media/Public/IMediaControls.h"
 
 // Sets default values
 AHughLevelEditor::AHughLevelEditor()
@@ -534,7 +518,7 @@ void AHughLevelEditor::PlaceObject(const FInputActionValue& Value) {
 				//}
 			}
 			
-			SpawnedActor->SetFolderPath("Level Editor");
+			//SpawnedActor->SetFolderPath("Level Editor");
 			count++;
 
 			//GhostObjects.Add(SpawnedActor);
@@ -568,7 +552,7 @@ void AddActorsToFolder(const TArray<AActor*>& ActorsToAdd, FName FolderName) {
 	for (AActor* Actor : ActorsToAdd) {
 		if (Actor)
 		{
-			Actor->SetFolderPath(FolderName);
+			//Actor->SetFolderPath(FolderName);
 		}
 	}
 }
@@ -646,8 +630,16 @@ UObjectProperties* AHughLevelEditor::GetObjectProperties()
 	if (AllObjects.Num() == 0 || !AllObjects[0]) return nullptr;
     
 	UClass* ActorClass = AllObjects[0]->GetClass();
-	UBlueprint* Blueprint = Cast<UBlueprint>(ActorClass->ClassGeneratedBy);
-    
+	UBlueprint* Blueprint = nullptr;
+	for (TObjectIterator<UBlueprint> BlueprintIt; BlueprintIt; ++BlueprintIt)
+	{
+		if (*BlueprintIt && BlueprintIt->GeneratedClass == ActorClass)
+		{
+			Blueprint = *BlueprintIt;
+			break;
+		}
+	}
+	
 	if (Blueprint && Cast<UBlueprintGeneratedClass>(Blueprint->GeneratedClass))
 	{
 		// Print the class we're looking at
