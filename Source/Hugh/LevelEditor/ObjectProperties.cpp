@@ -82,7 +82,7 @@ void UObjectProperties::OnParentHit(AActor* SelfActor, AActor* OtherActor, FVect
            End, 
            HalfSize, 
            Orientation,
-           UEngineTypes::ConvertToTraceType(ECC_Camera),
+           UEngineTypes::ConvertToTraceType(ECC_Visibility),
            false, 
            ActorsToIgnore, 
            EDrawDebugTrace::None,
