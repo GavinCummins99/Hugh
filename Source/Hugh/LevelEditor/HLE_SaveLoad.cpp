@@ -19,6 +19,8 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
     const UWorld* World = GetWorld();
     if (!World) return;
 
+    GEngine->AddOnScreenDebugMessage(4234, 5, FColor::Green, "Saving level : " + LevelName);
+
     // Create a JSON array to store all actors
     TArray<TSharedPtr<FJsonValue>> ActorArray;
 
@@ -245,6 +247,9 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
     Request->ProcessRequest();
 
     UE_LOG(LogTemp, Log, TEXT("Uploading level to Firebase: %s (with %d unique actors)"), *FileName, ActorArray.Num());
+
+    GEngine->AddOnScreenDebugMessage(4234, 5, FColor::Green, "Saving complete! : " + LevelName);
+
 }
 
 //Loads a level file from Firebase Storage

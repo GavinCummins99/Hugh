@@ -7,6 +7,7 @@
 #include "HLE_SaveLoad.generated.h"
 
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLevelNamesCallback, const TArray<FString>&, LevelNames);
+DECLARE_DYNAMIC_DELEGATE(FCompletedSave);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class HUGH_API UHLE_SaveLoad : public UActorComponent
@@ -22,7 +23,6 @@ public:
 	UFUNCTION(BlueprintCallable) void SaveLevel(FString LevelName) const;
 
 	UFUNCTION(BlueprintCallable, Category = "Level Editor|Save Load")
-
 	
 	void GetLevelNames(const FLevelNamesCallback& Callback);
 
