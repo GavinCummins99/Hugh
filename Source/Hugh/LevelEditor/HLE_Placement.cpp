@@ -32,11 +32,9 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	//CurrentObject->SetHidden(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
 	if (CurrentObject) Cast<AActor>(CurrentObject)->SetActorHiddenInGame(Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building);
 	if (Cast<AHughLevelEditor>(GetOwner())->EditorMode != Modes::Building){
-		GEngine->AddOnScreenDebugMessage(120, 10, FColor::Red, "True");
 
 	}
 	else{
-		GEngine->AddOnScreenDebugMessage(120, 10, FColor::Red, "False");
 
 	}
 
@@ -179,12 +177,6 @@ void UHLE_Placement::Trace() {
 		//	SetMaterial(Hit.GetActor(), Cast<AHughLevelEditor>(GetOwner())->EditingMaterial);
 		//	Cast<AHughLevelEditor>(GetOwner())->SelectedObjects.Add(Hit.GetActor());
 		//}
-
-		
-
-		
-		GEngine->AddOnScreenDebugMessage(111, 5.f, FColor::Blue, "Dist : " + FString::SanitizeFloat((CursorStartLoc - CursorLoc).Length()));
-
 	}
 
 	
@@ -420,8 +412,6 @@ void UHLE_Placement::SetMaterial(AActor* Actor, UMaterialInterface* OverlayMater
 
 //Rotates object
 void UHLE_Placement::RotateObject() {
-	GEngine->AddOnScreenDebugMessage(5, 5.0f, FColor::Red, TEXT("Rotate object"));
-
 	TargetYawRotation += 45;
 }
 

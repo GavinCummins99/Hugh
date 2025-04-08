@@ -186,7 +186,6 @@ void AHughLevelEditor::SetObjectIndex(int NewIndex){
 	}}
 
 void AHughLevelEditor::SetInputMap() {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("TEST FUNCTION CALLED"));
 
 	/*
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
@@ -207,7 +206,6 @@ void AHughLevelEditor::SetInputMap() {
 			if (IA_Zoom)
 			{
 				EnhancedInputComponent->BindAction(IA_Zoom, ETriggerEvent::Triggered, HLE_CameraComponent, &UHLE_Movement::Zoom);
-				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Zoom bound in BeginPlay"));
 			}
 
 			if (IA_Look) {
@@ -267,9 +265,7 @@ void AHughLevelEditor::Tick(float DeltaTime)
 		YLen = DisplayMesh->GetComponentLocation().Y / 100;
 	}
 
-
-	GEngine->AddOnScreenDebugMessage(0 ,0, FColor::Blue, FString::FromInt(XLen));
-	GEngine->AddOnScreenDebugMessage(1 ,0, FColor::Blue, FString::FromInt(YLen));
+	
 
 
 	if (EditorMode == Modes::Building) {

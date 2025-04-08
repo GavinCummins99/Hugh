@@ -9,6 +9,8 @@
 DECLARE_DYNAMIC_DELEGATE_OneParam(FLevelNamesCallback, const TArray<FString>&, LevelNames);
 DECLARE_DYNAMIC_DELEGATE(FCompletedSave);
 
+
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class HUGH_API UHLE_SaveLoad : public UActorComponent
 {

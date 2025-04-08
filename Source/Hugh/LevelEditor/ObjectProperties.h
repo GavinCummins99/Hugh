@@ -11,6 +11,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FObjectPlaced);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStartedPushing);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStoppedPushing);
 
+UENUM(BlueprintType)
+enum class ECategory : uint8 {Construct, Color, Technical};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class HUGH_API UObjectProperties : public UActorComponent{
@@ -48,6 +50,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") bool AllowRotation = true;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") bool AlignNormalToface = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") FVector GridSnap = FVector(1,1,1);
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") ECategory ObjectCategory; 
 
 	//Public properties
 	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
