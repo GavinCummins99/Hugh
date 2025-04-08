@@ -10,6 +10,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FObjectPlaced);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStartedPushing);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStoppedPushing);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPowered, FColor, Color);
 
 UENUM(BlueprintType)
 enum class ECategory : uint8 {Construct, Color, Technical};
@@ -58,8 +59,11 @@ public:
 
 	UPROPERTY(BlueprintAssignable) FObjectPlaced OnObjectPlaced;
 	UPROPERTY(BlueprintReadOnly) bool IsPlaced;
-	UPROPERTY(BlueprintAssignable) FObjectPlaced OnStartedPushing;
-	UPROPERTY(BlueprintAssignable) FObjectPlaced OnOStoppedPushing;
+	UPROPERTY(BlueprintAssignable) FStartedPushing OnStartedPushing;
+	UPROPERTY(BlueprintAssignable) FStoppedPushing OnOStoppedPushing;
+	UPROPERTY(BlueprintAssignable) FOnPowered OnPowered;
+
+	UFUNCTION(BlueprintCallable) void PowerObject(FColor PowerColor);
 
 	UFUNCTION(BlueprintCallable) void OnPlaced();
 	FVector Snap(FVector InVector);
@@ -69,4 +73,6 @@ public:
 	float TimeStartPush = 0;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) bool IsPushing = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<FString> MetaTages;
+
+
 };

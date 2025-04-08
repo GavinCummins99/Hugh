@@ -147,6 +147,10 @@ void UObjectProperties::CheckGround(){
 	}
 }
 
+void UObjectProperties::PowerObject(FColor PowerColor) {
+	OnPowered.Broadcast(PowerColor);
+}
+
 void UObjectProperties::OnPlaced() {
 	IsPlaced = true;
 	OnObjectPlaced.Broadcast();
