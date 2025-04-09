@@ -54,7 +54,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") ECategory ObjectCategory; 
 
 	//Public properties
-	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
 
 
 	UPROPERTY(BlueprintAssignable) FObjectPlaced OnObjectPlaced;
@@ -67,12 +66,13 @@ public:
 
 	UFUNCTION(BlueprintCallable) void OnPlaced();
 	FVector Snap(FVector InVector);
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 
 	FVector Direction = FVector(0, 0, 0);
 	float TimeStartPush = 0;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) bool IsPushing = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<FString> MetaTages;
 
-
+	//Power 
+	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 };
