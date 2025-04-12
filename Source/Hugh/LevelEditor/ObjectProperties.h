@@ -10,6 +10,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FObjectPlaced);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStartedPushing);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStoppedPushing);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPowered, FColor, Color);
 
 UENUM(BlueprintType)
 enum class ECategory : uint8 {Construct, Color, Technical};
@@ -53,20 +54,25 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Object settings") ECategory ObjectCategory; 
 
 	//Public properties
-	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
 
 
 	UPROPERTY(BlueprintAssignable) FObjectPlaced OnObjectPlaced;
 	UPROPERTY(BlueprintReadOnly) bool IsPlaced;
-	UPROPERTY(BlueprintAssignable) FObjectPlaced OnStartedPushing;
-	UPROPERTY(BlueprintAssignable) FObjectPlaced OnOStoppedPushing;
+	UPROPERTY(BlueprintAssignable) FStartedPushing OnStartedPushing;
+	UPROPERTY(BlueprintAssignable) FStoppedPushing OnOStoppedPushing;
+	UPROPERTY(BlueprintAssignable) FOnPowered OnPowered;
+
+	UFUNCTION(BlueprintCallable) void PowerObject(FColor PowerColor);
 
 	UFUNCTION(BlueprintCallable) void OnPlaced();
 	FVector Snap(FVector InVector);
-	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 
 	FVector Direction = FVector(0, 0, 0);
 	float TimeStartPush = 0;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) bool IsPushing = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TArray<FString> MetaTages;
+
+	//Power 
+	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 };
