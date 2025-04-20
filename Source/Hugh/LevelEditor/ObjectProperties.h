@@ -11,6 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FObjectPlaced);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStartedPushing);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStoppedPushing);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPowered, FColor, Color);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPowerStop);
 
 UENUM(BlueprintType)
 enum class ECategory : uint8 {Construct, Color, Technical};
@@ -61,8 +62,10 @@ public:
 	UPROPERTY(BlueprintAssignable) FStartedPushing OnStartedPushing;
 	UPROPERTY(BlueprintAssignable) FStoppedPushing OnOStoppedPushing;
 	UPROPERTY(BlueprintAssignable) FOnPowered OnPowered;
+	UPROPERTY(BlueprintAssignable) FOnPowerStop OnPowerStop;
 
 	UFUNCTION(BlueprintCallable) void PowerObject(FColor PowerColor);
+	UFUNCTION(BlueprintCallable) void UnpowerObject();
 
 	UFUNCTION(BlueprintCallable) void OnPlaced();
 	FVector Snap(FVector InVector);
@@ -75,4 +78,6 @@ public:
 	//Power 
 	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool PowerRequiresMatchingColor = false;
+
 };
