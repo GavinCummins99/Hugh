@@ -33,7 +33,7 @@ protected:
 	bool DebugEnabled = false;
 	void Push_Move(FVector TargetLocation);
 	UFUNCTION() void OnParentHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
-
+	AActor* GroundActor;
 
 
 public:	
@@ -79,5 +79,7 @@ public:
 	UPROPERTY(BlueprintReadWrite) bool EmittingPower = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool IsPowered = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) bool PowerRequiresMatchingColor = false;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) bool IsOnSlidingTile;
 
 };

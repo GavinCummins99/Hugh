@@ -3,6 +3,7 @@
 
 #include "Components/BoxComponent.h"
 #include "Elements/Framework/TypedElementOwnerStore.h"
+#include "Engine/Engine.h"
 #include "GameFramework/Character.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -36,6 +37,12 @@ void UObjectProperties::BeginPlay()
 
 //Move object if pushing
 void UObjectProperties::Push_Move(FVector TargetLocation) {
+	if (GroundActor) {
+		if (!IsOnSlidingTile) return;
+	}
+	//GEngine->AddOnScreenDebugMessage(-232, 5, FColor::Red, "Name : " + GroundActor->GetClass()->GetName());
+	//else  GEngine->AddOnScreenDebugMessage(-232, 5, FColor::Red, "No ground actor");
+	
 	float ConstantSpeed = 100; // Units per second
 	FVector NewLocation = FMath::VInterpConstantTo(GetOwner()->GetActorLocation(), TargetLocation, GetWorld()->DeltaTimeSeconds, ConstantSpeed);
     
@@ -141,6 +148,9 @@ void UObjectProperties::CheckGround(){
 		Target.Z -= 10;
 	}
 	else{
+		GroundActor = HitResult.GetActor();
+		IsOnSlidingTile = GroundActor->GetClass()->GetName() == "SlidingTile_C";
+		
 		if (HitResult.GetActor()->GetComponentByClass<UObjectProperties>()->ObjectColor != ObjectColor){
 			Target.Z = HitResult.ImpactPoint.Z;
 		}
