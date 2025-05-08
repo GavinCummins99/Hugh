@@ -27,8 +27,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Level Editor|Save Load")
 	
 	void GetLevelNames(const FLevelNamesCallback& Callback);
+	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Level Editor|Save Load")
-	void LoadLevel(FString LevelName);
-
+	void LoadLevel(FString LevelName, bool FromLocal);
+	void InitializeHTTPModule();
 };

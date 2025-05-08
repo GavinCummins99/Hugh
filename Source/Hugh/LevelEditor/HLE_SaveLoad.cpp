@@ -252,12 +252,14 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
 
 }
 
-//Loads a level file from Firebase Storage
-void UHLE_SaveLoad::LoadLevel(FString LevelName) {
+//Loads a level file from Firebase Storage or Local Storage
+//Loads a level file from Firebase Storage or Local Storage
+void UHLE_SaveLoad::LoadLevel(FString LevelName, bool FromLocal = false) {
 
     // Screen message - starting load
     if (GEngine)
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Starting to load level: %s"), *LevelName));
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Starting to load level: %s from %s"), 
+            *LevelName, FromLocal ? TEXT("local storage") : TEXT("Firebase")));
 
     //Unload previous level
     TArray<AActor*> FoundActors;
@@ -271,27 +273,7 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName) {
         Element->Destroy();
     }
 
-    // Firebase Storage configuration
-    FString StorageBucket = TEXT("hugh-c1e9e.firebasestorage.app");
-    FString FileName = LevelName + TEXT(".json");
-
-    // URL encode the filename
-    FString EncodedFileName = FGenericPlatformHttp::UrlEncode(FileName);
-
-    // Firebase Storage download URL
-    FString DownloadURL = FString::Printf(TEXT("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media"),
-        *StorageBucket, *EncodedFileName);
-
-    // Screen message - download URL
-    if (GEngine)
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Download URL: %s"), *DownloadURL));
-
-    // Create HTTP request
-    TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
-    Request->SetURL(DownloadURL);
-    Request->SetVerb(TEXT("GET"));
-
-    // Store reference to World and level name for use in lambda
+    // Get World reference
     UWorld* World = GetWorld();
     if (!World) {
         if (GEngine)
@@ -299,174 +281,374 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName) {
         return;
     }
 
-    // Set up callback for when request completes
-    Request->OnProcessRequestComplete().BindLambda(
-        [this, World, LevelName](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+    if (FromLocal) {
+        // Load from local storage
+        FString SaveDirectory = FPaths::ProjectDir() + TEXT("LevelSaves/");
+        FString FullPath = SaveDirectory + LevelName + TEXT(".json");
+
+        // Screen message - loading path
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Loading from local path: %s"), *FullPath));
+
+        // Check if directory exists, if not, create it
+        if (!FPlatformFileManager::Get().GetPlatformFile().DirectoryExists(*SaveDirectory)) {
+            FPlatformFileManager::Get().GetPlatformFile().CreateDirectoryTree(*SaveDirectory);
+            if (GEngine)
+                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Created LevelSaves directory"));
+        }
+
+        // Check if file exists
+        if (!FPlatformFileManager::Get().GetPlatformFile().FileExists(*FullPath)) {
+            if (GEngine)
+                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Level file not found: %s"), *FullPath));
+            return;
+        }
+
+        // Read file content
+        FString JsonString;
+        if (!FFileHelper::LoadFileToString(JsonString, *FullPath)) {
+            if (GEngine)
+                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to read level file: %s"), *FullPath));
+            return;
+        }
+
+        // Screen message - JSON size
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("JSON size: %d bytes"), JsonString.Len()));
+
+        // Process the loaded JSON
+        TSharedPtr<FJsonObject> MainJsonObject;
+        TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonString);
+
+        if (!FJsonSerializer::Deserialize(Reader, MainJsonObject) || !MainJsonObject.IsValid())
         {
-            if (!bWasSuccessful || !Response.IsValid())
-            {
-                if (GEngine)
-                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: HTTP request failed for level %s"), *LevelName));
-                return;
+            if (GEngine)
+                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to parse JSON for level %s"), *LevelName));
+            return;
+        }
+
+        // Screen message - JSON parsed
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("JSON parsed successfully"));
+
+        const TArray<TSharedPtr<FJsonValue>>* ActorsArrayPtr = nullptr;
+        if (!MainJsonObject->TryGetArrayField(FString(TEXT("Actors")), ActorsArrayPtr) || !ActorsArrayPtr)
+        {
+            if (GEngine)
+                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to find Actors array in JSON for level %s"), *LevelName));
+            return;
+        }
+
+        // Screen message - found actors in JSON
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Found %d actors in JSON"), ActorsArrayPtr->Num()));
+
+        int ActorsSpawned = 0;
+        int ActorsFailed = 0;
+
+        for (const TSharedPtr<FJsonValue>& ActorValue : *ActorsArrayPtr)
+        {
+            TSharedPtr<FJsonObject> ActorObject = ActorValue->AsObject();
+            if (!ActorObject.IsValid()) {
+                ActorsFailed++;
+                continue;
             }
 
-            if (Response->GetResponseCode() != 200)
-            {
-                if (GEngine)
-                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red,
-                        FString::Printf(TEXT("ERROR: HTTP response code %d for level %s"), Response->GetResponseCode(), *LevelName));
-                return;
+            FString ActorClassPath;
+            if (!ActorObject->TryGetStringField(TEXT("ActorClass"), ActorClassPath)) {
+                ActorsFailed++;
+                continue;
             }
 
-            // Screen message - response received
-            if (GEngine)
-                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("HTTP response received successfully"));
-
-            // Get the JSON string from the response
-            FString JsonString = Response->GetContentAsString();
-
-            // Screen message - JSON size
-            if (GEngine)
-                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("JSON size: %d bytes"), JsonString.Len()));
-
-            TSharedPtr<FJsonObject> MainJsonObject;
-            TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonString);
-
-            if (!FJsonSerializer::Deserialize(Reader, MainJsonObject) || !MainJsonObject.IsValid())
-            {
+            UClass* ActorClass = FindObject<UClass>(ANY_PACKAGE, *ActorClassPath);
+            if (!ActorClass) {
                 if (GEngine)
-                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to parse JSON for level %s"), *LevelName));
-                return;
+                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Could not find actor class: %s"), *ActorClassPath));
+                ActorsFailed++;
+                continue;
             }
 
-            // Screen message - JSON parsed
-            if (GEngine)
-                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("JSON parsed successfully"));
+            // Get transform data
+            FVector Location = FVector::ZeroVector;
+            FRotator Rotation = FRotator::ZeroRotator;
 
-            const TArray<TSharedPtr<FJsonValue>>* ActorsArrayPtr = nullptr;
-            if (!MainJsonObject->TryGetArrayField(FString(TEXT("Actors")), ActorsArrayPtr) || !ActorsArrayPtr)
+            const TSharedPtr<FJsonObject>* LocationObj = nullptr;
+            if (ActorObject->TryGetObjectField(TEXT("Location"), LocationObj) && LocationObj)
             {
-                if (GEngine)
-                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to find Actors array in JSON for level %s"), *LevelName));
-                return;
+                Location = FVector(
+                    (*LocationObj)->GetNumberField(TEXT("X")),
+                    (*LocationObj)->GetNumberField(TEXT("Y")),
+                    (*LocationObj)->GetNumberField(TEXT("Z"))
+                );
             }
 
-            // Screen message - found actors in JSON
-            if (GEngine)
-                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Found %d actors in JSON"), ActorsArrayPtr->Num()));
-
-            int ActorsSpawned = 0;
-            int ActorsFailed = 0;
-
-            for (const TSharedPtr<FJsonValue>& ActorValue : *ActorsArrayPtr)
+            const TSharedPtr<FJsonObject>* RotationObj = nullptr;
+            if (ActorObject->TryGetObjectField(TEXT("Rotation"), RotationObj) && RotationObj)
             {
-                TSharedPtr<FJsonObject> ActorObject = ActorValue->AsObject();
-                if (!ActorObject.IsValid()) {
-                    ActorsFailed++;
-                    continue;
-                }
+                Rotation = FRotator(
+                    (*RotationObj)->GetNumberField(TEXT("Pitch")),
+                    (*RotationObj)->GetNumberField(TEXT("Yaw")),
+                    (*RotationObj)->GetNumberField(TEXT("Roll"))
+                );
+            }
 
-                FString ActorClassPath;
-                if (!ActorObject->TryGetStringField(TEXT("ActorClass"), ActorClassPath)) {
-                    ActorsFailed++;
-                    continue;
-                }
+            // Spawn actor
+            FActorSpawnParameters SpawnParams;
+            SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
-                UClass* ActorClass = FindObject<UClass>(ANY_PACKAGE, *ActorClassPath);
-                if (!ActorClass) {
-                    if (GEngine)
-                        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Could not find actor class: %s"), *ActorClassPath));
-                    ActorsFailed++;
-                    continue;
-                }
+            AActor* NewActor = World->SpawnActor<AActor>(ActorClass, Location, Rotation, SpawnParams);
+            if (NewActor)
+            {
+                // Add the LevelEditorObject tag
+                NewActor->Tags.Add(FName("LevelEditorObject"));
+                ActorsSpawned++;
 
-                // Get transform data
-                FVector Location = FVector::ZeroVector;
-                FRotator Rotation = FRotator::ZeroRotator;
-
-                const TSharedPtr<FJsonObject>* LocationObj = nullptr;
-                if (ActorObject->TryGetObjectField(TEXT("Location"), LocationObj) && LocationObj)
+                // Check if we have Properties to restore
+                const TSharedPtr<FJsonObject>* PropertiesObj = nullptr;
+                if (ActorObject->TryGetObjectField(TEXT("Properties"), PropertiesObj) && PropertiesObj)
                 {
-                    Location = FVector(
-                        (*LocationObj)->GetNumberField(TEXT("X")),
-                        (*LocationObj)->GetNumberField(TEXT("Y")),
-                        (*LocationObj)->GetNumberField(TEXT("Z"))
-                    );
-                }
-
-                const TSharedPtr<FJsonObject>* RotationObj = nullptr;
-                if (ActorObject->TryGetObjectField(TEXT("Rotation"), RotationObj) && RotationObj)
-                {
-                    Rotation = FRotator(
-                        (*RotationObj)->GetNumberField(TEXT("Pitch")),
-                        (*RotationObj)->GetNumberField(TEXT("Yaw")),
-                        (*RotationObj)->GetNumberField(TEXT("Roll"))
-                    );
-                }
-
-                // Spawn actor
-                FActorSpawnParameters SpawnParams;
-                SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
-                AActor* NewActor = World->SpawnActor<AActor>(ActorClass, Location, Rotation, SpawnParams);
-                if (NewActor)
-                {
-                    // Add the LevelEditorObject tag
-                    NewActor->Tags.Add(FName("LevelEditorObject"));
-                    ActorsSpawned++;
-
-                    // Check if we have Properties to restore
-                    const TSharedPtr<FJsonObject>* PropertiesObj = nullptr;
-                    if (ActorObject->TryGetObjectField(TEXT("Properties"), PropertiesObj) && PropertiesObj)
+                    // Try to find the ObjectProperties component on the actor
+                    UObjectProperties* PropertiesComp = Cast<UObjectProperties>(NewActor->GetComponentByClass(UObjectProperties::StaticClass()));
+                    if (PropertiesComp)
                     {
-                        // Try to find the ObjectProperties component on the actor
-                        UObjectProperties* PropertiesComp = Cast<UObjectProperties>(NewActor->GetComponentByClass(UObjectProperties::StaticClass()));
-                        if (PropertiesComp)
+                        PropertiesComp->OnPlaced();
+                        
+                        // Check if we have an ObjectColor property
+                        FString HexColorString;
+                        if ((*PropertiesObj)->TryGetStringField(TEXT("ObjectColor"), HexColorString))
                         {
-                            PropertiesComp->OnPlaced();
-                            
-                            // Check if we have an ObjectColor property
-                            FString HexColorString;
-                            if ((*PropertiesObj)->TryGetStringField(TEXT("ObjectColor"), HexColorString))
+                            // Parse the hex color string
+                            if (HexColorString.StartsWith(TEXT("#")) && HexColorString.Len() == 9)
                             {
-                                // Parse the hex color string
-                                if (HexColorString.StartsWith(TEXT("#")) && HexColorString.Len() == 9)
-                                {
-                                    // Remove the # character
-                                    FString ColorHex = HexColorString.Mid(1);
+                                // Remove the # character
+                                FString ColorHex = HexColorString.Mid(1);
 
-                                    // Convert the hex string directly to a color
-                                    PropertiesComp->ObjectColor = FColor::FromHex(ColorHex);
-                                }
+                                // Convert the hex string directly to a color
+                                PropertiesComp->ObjectColor = FColor::FromHex(ColorHex);
                             }
                         }
-                        else {
-                            if (GEngine)
-                                GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("No ObjectProperties component found on actor"));
-                        }
+                    }
+                    else {
+                        if (GEngine)
+                            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("No ObjectProperties component found on actor"));
                     }
                 }
-                else {
-                    if (GEngine)
-                        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to spawn actor of class: %s"), *ActorClassPath));
-                    ActorsFailed++;
-                }
             }
-
-            // Final screen message - loading complete
-            if (GEngine)
-                GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Green,
-                    FString::Printf(TEXT("Level %s loaded: %d actors spawned, %d actors failed"),
-                        *LevelName, ActorsSpawned, ActorsFailed));
+            else {
+                if (GEngine)
+                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to spawn actor of class: %s"), *ActorClassPath));
+                ActorsFailed++;
+            }
         }
-    );
 
-    // Send the request
-    Request->ProcessRequest();
+        // Final screen message - loading complete
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Green,
+                FString::Printf(TEXT("Level %s loaded: %d actors spawned, %d actors failed"),
+                    *LevelName, ActorsSpawned, ActorsFailed));
+    }
+    else {
+        // Firebase Storage configuration
+        FString StorageBucket = TEXT("hugh-c1e9e.firebasestorage.app");
+        FString FileName = LevelName + TEXT(".json");
 
-    // Screen message - request sent
+        // URL encode the filename
+        FString EncodedFileName = FGenericPlatformHttp::UrlEncode(FileName);
+
+        // Firebase Storage download URL
+        FString DownloadURL = FString::Printf(TEXT("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media"),
+            *StorageBucket, *EncodedFileName);
+
+        // Screen message - download URL
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Download URL: %s"), *DownloadURL));
+
+        // Create HTTP request
+        TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
+        Request->SetURL(DownloadURL);
+        Request->SetVerb(TEXT("GET"));
+
+        // Set up callback for when request completes
+        Request->OnProcessRequestComplete().BindLambda(
+            [this, World, LevelName](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+            {
+                if (!bWasSuccessful || !Response.IsValid())
+                {
+                    if (GEngine)
+                        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: HTTP request failed for level %s"), *LevelName));
+                    return;
+                }
+
+                if (Response->GetResponseCode() != 200)
+                {
+                    if (GEngine)
+                        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red,
+                            FString::Printf(TEXT("ERROR: HTTP response code %d for level %s"), Response->GetResponseCode(), *LevelName));
+                    return;
+                }
+
+                // Screen message - response received
+                if (GEngine)
+                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("HTTP response received successfully"));
+
+                // Get the JSON string from the response
+                FString JsonString = Response->GetContentAsString();
+
+                // Screen message - JSON size
+                if (GEngine)
+                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("JSON size: %d bytes"), JsonString.Len()));
+
+                TSharedPtr<FJsonObject> MainJsonObject;
+                TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonString);
+
+                if (!FJsonSerializer::Deserialize(Reader, MainJsonObject) || !MainJsonObject.IsValid())
+                {
+                    if (GEngine)
+                        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to parse JSON for level %s"), *LevelName));
+                    return;
+                }
+
+                // Screen message - JSON parsed
+                if (GEngine)
+                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("JSON parsed successfully"));
+
+                const TArray<TSharedPtr<FJsonValue>>* ActorsArrayPtr = nullptr;
+                if (!MainJsonObject->TryGetArrayField(FString(TEXT("Actors")), ActorsArrayPtr) || !ActorsArrayPtr)
+                {
+                    if (GEngine)
+                        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to find Actors array in JSON for level %s"), *LevelName));
+                    return;
+                }
+
+                // Screen message - found actors in JSON
+                if (GEngine)
+                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Found %d actors in JSON"), ActorsArrayPtr->Num()));
+
+                int ActorsSpawned = 0;
+                int ActorsFailed = 0;
+
+                for (const TSharedPtr<FJsonValue>& ActorValue : *ActorsArrayPtr)
+                {
+                    TSharedPtr<FJsonObject> ActorObject = ActorValue->AsObject();
+                    if (!ActorObject.IsValid()) {
+                        ActorsFailed++;
+                        continue;
+                    }
+
+                    FString ActorClassPath;
+                    if (!ActorObject->TryGetStringField(TEXT("ActorClass"), ActorClassPath)) {
+                        ActorsFailed++;
+                        continue;
+                    }
+
+                    UClass* ActorClass = FindObject<UClass>(ANY_PACKAGE, *ActorClassPath);
+                    if (!ActorClass) {
+                        if (GEngine)
+                            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Could not find actor class: %s"), *ActorClassPath));
+                        ActorsFailed++;
+                        continue;
+                    }
+
+                    // Get transform data
+                    FVector Location = FVector::ZeroVector;
+                    FRotator Rotation = FRotator::ZeroRotator;
+
+                    const TSharedPtr<FJsonObject>* LocationObj = nullptr;
+                    if (ActorObject->TryGetObjectField(TEXT("Location"), LocationObj) && LocationObj)
+                    {
+                        Location = FVector(
+                            (*LocationObj)->GetNumberField(TEXT("X")),
+                            (*LocationObj)->GetNumberField(TEXT("Y")),
+                            (*LocationObj)->GetNumberField(TEXT("Z"))
+                        );
+                    }
+
+                    const TSharedPtr<FJsonObject>* RotationObj = nullptr;
+                    if (ActorObject->TryGetObjectField(TEXT("Rotation"), RotationObj) && RotationObj)
+                    {
+                        Rotation = FRotator(
+                            (*RotationObj)->GetNumberField(TEXT("Pitch")),
+                            (*RotationObj)->GetNumberField(TEXT("Yaw")),
+                            (*RotationObj)->GetNumberField(TEXT("Roll"))
+                        );
+                    }
+
+                    // Spawn actor
+                    FActorSpawnParameters SpawnParams;
+                    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+                    AActor* NewActor = World->SpawnActor<AActor>(ActorClass, Location, Rotation, SpawnParams);
+                    if (NewActor)
+                    {
+                        // Add the LevelEditorObject tag
+                        NewActor->Tags.Add(FName("LevelEditorObject"));
+                        ActorsSpawned++;
+
+                        // Check if we have Properties to restore
+                        const TSharedPtr<FJsonObject>* PropertiesObj = nullptr;
+                        if (ActorObject->TryGetObjectField(TEXT("Properties"), PropertiesObj) && PropertiesObj)
+                        {
+                            // Try to find the ObjectProperties component on the actor
+                            UObjectProperties* PropertiesComp = Cast<UObjectProperties>(NewActor->GetComponentByClass(UObjectProperties::StaticClass()));
+                            if (PropertiesComp)
+                            {
+                                PropertiesComp->OnPlaced();
+                                
+                                // Check if we have an ObjectColor property
+                                FString HexColorString;
+                                if ((*PropertiesObj)->TryGetStringField(TEXT("ObjectColor"), HexColorString))
+                                {
+                                    // Parse the hex color string
+                                    if (HexColorString.StartsWith(TEXT("#")) && HexColorString.Len() == 9)
+                                    {
+                                        // Remove the # character
+                                        FString ColorHex = HexColorString.Mid(1);
+
+                                        // Convert the hex string directly to a color
+                                        PropertiesComp->ObjectColor = FColor::FromHex(ColorHex);
+                                    }
+                                }
+                            }
+                            else {
+                                if (GEngine)
+                                    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("No ObjectProperties component found on actor"));
+                            }
+                        }
+                    }
+                    else {
+                        if (GEngine)
+                            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("ERROR: Failed to spawn actor of class: %s"), *ActorClassPath));
+                        ActorsFailed++;
+                    }
+                }
+
+                // Final screen message - loading complete
+                if (GEngine)
+                    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Green,
+                        FString::Printf(TEXT("Level %s loaded: %d actors spawned, %d actors failed"),
+                            *LevelName, ActorsSpawned, ActorsFailed));
+            }
+        );
+
+        // Send the request
+        Request->ProcessRequest();
+
+        // Screen message - request sent
+        if (GEngine)
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("HTTP request sent for level %s"), *LevelName));
+    }
+}
+
+
+// Then implement it in your CPP file:
+void UHLE_SaveLoad::InitializeHTTPModule()
+{
+    // Disable SSL certificate verification for packaged builds
+    #if !UE_EDITOR
+    FHttpModule::Get().GetHttpManager().SetEnableCertificateVerification(false);
     if (GEngine)
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("HTTP request sent for level %s"), *LevelName));
+        GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, TEXT("SSL Certificate verification disabled for packaged build"));
+#endif
 }
 
 void UHLE_SaveLoad::GetLevelNames(const FLevelNamesCallback& Callback)
@@ -520,4 +702,10 @@ void UHLE_SaveLoad::GetLevelNames(const FLevelNamesCallback& Callback)
 
     // Send the request
     Request->ProcessRequest();
+}
+
+void UHLE_SaveLoad::BeginPlay()
+{
+    Super::BeginPlay();
+    InitializeHTTPModule();
 }
