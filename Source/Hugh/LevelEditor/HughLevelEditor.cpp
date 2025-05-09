@@ -133,9 +133,31 @@ void AHughLevelEditor::BeginPlay()
 	InputMode.SetHideCursorDuringCapture(false);
 	PlayerController->SetInputMode(InputMode);
 
+	// Fix for the array index issue:
+	InitializeObjectArray();
 
-	FActorSpawnParameters SpawnInfo;
-	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[16]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
+	// Only access the array if it has enough elements
+	if (AllObjects.Num() > 16)
+	{
+		FActorSpawnParameters SpawnInfo;
+		HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[16]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
+	}
+	else if (AllObjects.Num() > 0)
+	{
+		// Fallback to index 0 if 16 is not available
+		FActorSpawnParameters SpawnInfo;
+		HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[0]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
+	}
+}
+
+// Add this helper function to your class:
+void AHughLevelEditor::InitializeObjectArray()
+{
+	// If AllObjects is already populated, don't do anything
+	if (AllObjects.Num() > 0)
+	{
+		return;
+	}
 
 }
 

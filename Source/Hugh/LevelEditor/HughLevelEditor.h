@@ -28,13 +28,14 @@ struct FActorSaveData
 	FString ActorClass;
 
 	UPROPERTY()
-	FVector Location;
+	FVector Location = FVector::ZeroVector;
 
 	UPROPERTY()
-	FRotator Rotation;
+	FRotator Rotation = FRotator::ZeroRotator;
 
 	UPROPERTY()
-	FVector Scale;
+	FVector Scale = FVector(1.0f, 1.0f, 1.0f);
+
 };
 
 UCLASS()
@@ -52,6 +53,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere) TSubclassOf<AActor> CurrentObject;
 	UFUNCTION(BlueprintCallable) void SetObjectIndex(int NewIndex);
+
+private:
+	void InitializeObjectArray();
 
 protected:
 	// Called when the game starts or when spawned

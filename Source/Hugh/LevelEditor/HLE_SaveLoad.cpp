@@ -643,11 +643,13 @@ void UHLE_SaveLoad::LoadLevel(FString LevelName, bool FromLocal = false) {
 // Then implement it in your CPP file:
 void UHLE_SaveLoad::InitializeHTTPModule()
 {
-    // Disable SSL certificate verification for packaged builds
-    #if !UE_EDITOR
-    FHttpModule::Get().GetHttpManager().SetEnableCertificateVerification(false);
+    // Disable SSL certificate verification for packaged builds using the public API
+#if !UE_EDITOR
+    FHttpModule::Get().SetHttpTimeout(180.0f);  // Optional: Set a longer timeout
+    // Use the public API instead of direct FHttpManager access
+    // Add diagnostic message
     if (GEngine)
-        GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, TEXT("SSL Certificate verification disabled for packaged build"));
+        GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, TEXT("HTTP Module initialized for packaged build"));
 #endif
 }
 

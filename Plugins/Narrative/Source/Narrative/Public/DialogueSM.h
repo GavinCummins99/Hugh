@@ -18,14 +18,9 @@ struct FSpeakerSelector
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, Category = "Speakers")
-	FName SpeakerID;
+	FName SpeakerID = NAME_None;
 
-	FSpeakerSelector()
-	{}
 
-	FSpeakerSelector(const FName& InSpeakerID) :
-		SpeakerID(InSpeakerID)
-	{}
 };
 
 //Defines when the line is finished and we should play the next one 
@@ -58,6 +53,7 @@ public:
 	FDialogueLine()
 	{
 		Text = FText::GetEmpty();
+		Portrait = nullptr; 
 		FacialAnimation = nullptr;
 		DialogueSound = nullptr;
 		DialogueMontage = nullptr;
