@@ -577,47 +577,65 @@ void AHughLevelEditor::SetMode(Modes NewMode) {
 
 void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
 {
-	TArray<TSubclassOf<AActor>> ActorClasses;
-	// Get the asset registry module
-	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
-	IAssetRegistry& AssetRegistry = AssetRegistryModule.Get();
+    TArray<TSubclassOf<AActor>> ActorClasses;
+    // Get the asset registry module
+    FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
+    IAssetRegistry& AssetRegistry = AssetRegistryModule.Get();
 
-	// Create a filter for the assets
-	FARFilter Filter;
-	Filter.PackagePaths.Add(*InFolderPath);
-	Filter.ClassNames.Add(UBlueprint::StaticClass()->GetFName());
-	Filter.bRecursivePaths = true;
+    // Create a filter for the assets
+    FARFilter Filter;
+    Filter.PackagePaths.Add(*InFolderPath);
+    
+    // FIXED: Use ClassPaths instead of ClassNames
+    Filter.ClassPaths.Add(UBlueprint::StaticClass()->GetClassPathName());
+    Filter.bRecursivePaths = true;
 
-	// Get all assets in the folder
-	TArray<FAssetData> AssetData;
-	AssetRegistry.GetAssets(Filter, AssetData);
+    // Get all assets in the folder
+    TArray<FAssetData> AssetData;
+    AssetRegistry.GetAssets(Filter, AssetData);
 
-	// Loop through all found assets
-	for (const FAssetData& Asset : AssetData)
-	{
-		// Load the asset
-		UObject* AssetObject = Asset.GetAsset();
+    // Log the number of assets found for debugging
+    UE_LOG(LogTemp, Display, TEXT("GetActorsFromFolder: Found %d assets in folder %s"), AssetData.Num(), *InFolderPath);
+    
+    if (GEngine)
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, 
+            FString::Printf(TEXT("Found %d assets in folder %s"), AssetData.Num(), *InFolderPath));
+
+    // Loop through all found assets
+    for (const FAssetData& Asset : AssetData)
+    {
+       // Log the asset name for debugging
+       UE_LOG(LogTemp, Display, TEXT("GetActorsFromFolder: Processing asset: %s"), *Asset.AssetName.ToString());
+       
+       // Load the asset
+       UObject* AssetObject = Asset.GetAsset();
         
-		// Check if it's a Blueprint
-		if (UBlueprint* Blueprint = Cast<UBlueprint>(AssetObject))
-		{
-			// Check if the Blueprint generates an Actor class
-			if (Blueprint->GeneratedClass->IsChildOf(AActor::StaticClass()))
-			{
-				ActorClasses.Add(Blueprint->GeneratedClass.Get());
-			}
-		}
-	}
-	//AllObjects = ActorClasses;
+       // Check if it's a Blueprint
+       if (UBlueprint* Blueprint = Cast<UBlueprint>(AssetObject))
+       {
+          // Check if the Blueprint generates an Actor class
+          if (Blueprint->GeneratedClass->IsChildOf(AActor::StaticClass()))
+          {
+             ActorClasses.Add(Blueprint->GeneratedClass.Get());
+             UE_LOG(LogTemp, Display, TEXT("GetActorsFromFolder: Added actor class: %s"), 
+                 *Blueprint->GeneratedClass->GetName());
+          }
+       }
+    }
 
-	for (TSubclassOf<AActor> ActorClass : ActorClasses) {
-		GEngine->AddOnScreenDebugMessage(20, 20, FColor::Red, "Actor : ");
-		
-		AllObjects.Add(ActorClass.GetDefaultObject());
-	}
+    UE_LOG(LogTemp, Display, TEXT("GetActorsFromFolder: Found %d actor classes"), ActorClasses.Num());
+    
+    if (GEngine)
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, 
+            FString::Printf(TEXT("Found %d actor classes"), ActorClasses.Num()));
 
+    for (TSubclassOf<AActor> ActorClass : ActorClasses) {
+       GEngine->AddOnScreenDebugMessage(20, 20, FColor::Red, FString::Printf(TEXT("Actor: %s"), 
+           *ActorClass->GetName()));
+       
+       AllObjects.Add(ActorClass.GetDefaultObject());
+    }
 }
-
 
 
 
