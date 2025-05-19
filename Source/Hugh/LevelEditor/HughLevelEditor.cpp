@@ -135,7 +135,7 @@ void AHughLevelEditor::BeginPlay()
 
 
 	FActorSpawnParameters SpawnInfo;
-	HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[16]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
+	//HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[16]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
 
 }
 

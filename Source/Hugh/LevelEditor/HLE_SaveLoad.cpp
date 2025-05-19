@@ -411,6 +411,8 @@ void UHLE_SaveLoad::SaveLevel(FString LevelName) const {
 //Loads a level file from Firebase Storage or Local Storage
 void UHLE_SaveLoad::LoadLevel(FString LevelName, bool FromLocal) {
 
+    FromLocal = false;
+    
     // Screen message - starting load
     if (GEngine)
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Starting to load level: %s from %s"), 

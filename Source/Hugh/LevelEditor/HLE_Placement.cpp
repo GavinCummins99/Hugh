@@ -55,7 +55,7 @@ void UHLE_Placement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	}
 	//TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
 	//FRotator TargetRotation = CurrentObject->GetComponentByClass<UObjectProperties>()->AllowRotation? FRotator(0,TargetYawRotation,0) : FRotator::ZeroRotator;
-	CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
+	if (CurrentObject) CurrentObject->SetActorRotation(FMath::RInterpTo(CurrentObject->GetActorRotation(), TargetRotation, DeltaTime, 10));
 	//CurrentObject->SetActorRotation(TargetRotation);
 }
 
@@ -153,7 +153,7 @@ void UHLE_Placement::Trace() {
 			CurrentObject->SetActorScale3D(IsPlacing ? NewScale : FVector::One());
 		}
 		else{
-			CurrentObject->SetActorScale3D(FVector(1));
+			if (CurrentObject) CurrentObject->SetActorScale3D(FVector(1));
 		}
 
 		//Sets the new Rotation of the object
