@@ -21,6 +21,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Materials/Material.h"
 #include "HLE_Movement.h"
+#include "Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/Private/AudioCaptureWasapi.h"
 
 // Sets default values
 AHughLevelEditor::AHughLevelEditor()
@@ -135,7 +136,6 @@ void AHughLevelEditor::BeginPlay()
 
 
 	FActorSpawnParameters SpawnInfo;
-	//HLE_Placement->CurrentObject = GetWorld()->SpawnActor(AllObjects[16]->GetClass(), &FVector::ZeroVector, &FRotator::ZeroRotator, SpawnInfo);
 
 }
 

@@ -37,7 +37,7 @@ struct FActorSaveData
 	FVector Scale;
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class HUGH_API AHughLevelEditor : public APawn
 {
 	GENERATED_BODY()
