@@ -636,6 +636,10 @@ void AHughLevelEditor::GetActorsFromFolder(const FString& InFolderPath)
        
        AllObjects.Add(ActorClass.GetDefaultObject());
     }
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, "There is :" + FString::FromInt(AllObjects.Num()));
+
+	
 }
 
 
